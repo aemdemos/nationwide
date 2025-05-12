@@ -1,3 +1,5 @@
+
+/* Base CSS */
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -24,4 +26,116 @@
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+}
+
+/* Generated CSS */
+.cards-wrapper > .cards.cards20.block > ul {
+  display: flex; /* Use Flexbox for horizontal alignment */
+  justify-content: center; /* Center all items horizontally */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  gap: 32px; /* Space between items */
+  list-style: none; /* Remove default list styling */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.cards-wrapper > .cards.cards20.block > ul > li {
+  border: none; /* Remove border */
+  background-color: transparent; /* Remove background color */
+  display: flex; /* Ensure the items stack content vertically */
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text alignment */
+}
+
+.cards-wrapper > .cards.cards20.block .cards-card-image {
+  margin-bottom: 16px; /* Space between image and text */
+}
+
+.cards-wrapper > .cards.cards20.block > ul > li img {
+  width: 50px; /* Set consistent width for the images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Prevent distortion */
+  display: block; /* Make the image a block-level element */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+.cards-wrapper > .cards.cards20.block .cards-card-body {
+  margin: 0; /* Remove unnecessary margin */
+  padding-top: 8px; /* Adjust vertical spacing */
+}
+
+.cards-wrapper > .cards.cards20.block .cards-card-body p {
+  font-family: var(--body-font-family); /* Use default body font family */
+  font-size: var(--body-font-size-s); /* Use default small font size */
+  font-weight: bold; /* Make text bold */
+  color: #001E42; /* Navy blue color for text */
+  text-decoration: underline; /* Add underline effect */
+  margin-top: 0; /* Remove unnecessary spacing */
+  margin-bottom: 4px; /* Slightly reduce spacing below text */
+  text-align: center; /* Center text horizontally */
+}
+
+@media (max-width: 768px) {
+  .cards-wrapper > .cards.cards20.block > ul {
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center; /* Center items in smaller viewports */
+    gap: 24px; /* Reduce spacing for smaller viewports */
+  }
+}
+
+/* Merged Selector */
+.cards.cards20 {
+  display: flex; /* Use Flexbox for horizontal alignment */
+  justify-content: center; /* Center all items horizontally */
+  flex-wrap: nowrap; /* Prevent wrapping */
+  gap: 32px; /* Space between items */
+  list-style: none; /* Remove default list styling */
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+}
+
+.cards.cards20 > li {
+  border: none; /* Remove border */
+  background-color: transparent; /* Remove background color */
+  display: flex; /* Ensure the items stack content vertically */
+  flex-direction: column; /* Stack image and text vertically */
+  align-items: center; /* Center items horizontally */
+  text-align: center; /* Center text alignment */
+}
+
+.cards.cards20 .cards-card-image {
+  margin-bottom: 16px; /* Space between image and text */
+}
+
+.cards.cards20 > li img {
+  width: 50px; /* Set consistent width for the images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Prevent distortion */
+  display: block; /* Make the image a block-level element */
+  margin: 0 auto; /* Center the image horizontally */
+}
+
+.cards.cards20 .cards-card-body {
+  margin: 0; /* Remove unnecessary margin */
+  padding-top: 8px; /* Adjust vertical spacing */
+}
+
+.cards.cards20 .cards-card-body p {
+  font-family: var(--body-font-family); /* Use default body font family */
+  font-size: var(--body-font-size-s); /* Use default small font size */
+  font-weight: bold; /* Make text bold */
+  color: #001E42; /* Navy blue color for text */
+  text-decoration: underline; /* Add underline effect */
+  margin-top: 0; /* Remove unnecessary spacing */
+  margin-bottom: 4px; /* Slightly reduce spacing below text */
+  text-align: center; /* Center text horizontally */
+}
+
+@media (max-width: 768px) {
+  .cards.cards20 {
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+    justify-content: center; /* Center items in smaller viewports */
+    gap: 24px; /* Reduce spacing for smaller viewports */
+  }
 }
