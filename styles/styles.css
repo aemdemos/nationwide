@@ -12,6 +12,7 @@
  */
 :root {
   --background-color: white;
+  --background-color-header: rgb(1, 21, 70);
   --light-color: #f8f8f8;
   --dark-color: #505050;
   --text-color: #131313;
@@ -28,7 +29,7 @@
   --heading-font-size-m: 22px;
   --heading-font-size-s: 13.28px;
   --heading-font-size-xs: 10.72px;
-  --nav-height: 64px;
+  --nav-height: 153px;
   --header-height: var(--nav-height);
 }
 
