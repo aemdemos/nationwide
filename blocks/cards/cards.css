@@ -1,3 +1,4 @@
+
 .cards > ul {
   list-style: none;
   margin: 0;
@@ -110,4 +111,108 @@
     min-width: 120px;
     margin-bottom: 24px;
   }
+}
+
+.cards-wrapper {
+  display: flex; /* Use flexbox for overall layout */
+  justify-content: center; /* Center the cards horizontally */
+  gap: 24px; /* Add spacing between the cards */
+  padding: 20px; /* Add padding around the container */
+}
+
+.cards-wrapper > .cards {
+  display: flex; /* Flexbox layout for cards */
+  flex-direction: row; /* Ensure cards are side by side */
+  justify-content: center; /* Center cards within the container */
+  gap: 24px; /* Add space between cards */
+  width: 100%; /* Ensure cards span the container */
+}
+
+.cards-wrapper > .cards > ul {
+  list-style: none; /* Remove bullet points */
+  margin: 0;
+  padding: 0;
+  display: flex; /* Align cards in a row */
+  flex-direction: row; /* Ensure cards are side by side */
+  gap: 24px; /* Space between cards */
+}
+
+.cards-wrapper > .cards > ul > li {
+  background-color: #ffffff; /* White background for text section */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+  overflow: hidden; /* Prevent content overflow */
+  display: flex;
+  flex-direction: column; /* Stack image above text */
+  width: 380px; /* Fixed width for cards */
+}
+
+.cards-wrapper .cards-card-image {
+  display: flex; /* Center image horizontally */
+  justify-content: center; /* Horizontal centering */
+  align-items: center; /* Vertical centering */
+  background-color: #f4ede4; /* Beige background for image section */
+  padding: 40px; /* Increase padding for breathing room */
+}
+
+.cards-wrapper .cards-card-image img {
+  max-width: 90%; /* Increase image size */
+  height: auto;
+}
+
+.cards-wrapper .cards-card-body {
+  padding: 20px; /* Add padding inside text section */
+  text-align: left; /* Align text to the left */
+}
+
+.cards-wrapper .cards-card-body p strong {
+  font-size: 20px; /* Larger font size for title */
+  color: #0c2340; /* Navy blue color for title */
+}
+
+.cards-wrapper .cards-card-body p {
+  font-size: 16px; /* Regular font size for body text */
+  color: #5c5c5c; /* Gray color for body text */
+  margin: 10px 0; /* Add spacing between paragraphs */
+}
+
+.cards-wrapper .cards-card-body .button-container a {
+  color: #ffffff; /* White button text */
+  background-color: #3b63fb; /* Blue button background */
+  display: inline-block;
+  text-align: center; /* Center button text */
+  padding: 12px 24px; /* Adjust button padding */
+  border-radius: 25px; /* Rounded button */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold button text */
+  margin-top: 20px; /* Add spacing above the button */
+}
+
+@media (max-width: 768px) {
+  .cards-wrapper > .cards {
+    flex-direction: column; /* Stack cards vertically on smaller screens */
+    gap: 20px; /* Increase gap for readability */
+  }
+
+  .cards-wrapper > .cards > ul > li {
+    width: 100%; /* Full width for smaller screens */
+  }
+
+  .cards-wrapper .cards-card-image {
+    padding: 30px; /* Adjust padding for smaller screens */
+  }
+
+  .cards-wrapper .cards-card-body {
+    padding: 20px; /* Adjust padding for smaller screens */
+  }
+}
+
+/* Merged CSS for .cards.cards21 */
+.cards.cards21 {
+  background: #fff;
+  padding: 32px 0;
+  display: flex; /* Flexbox layout to overwrite grid */
+  flex-direction: row; /* Make cards layout side-by-side */
+  gap: 24px; /* Add space between cards */
+  justify-content: center; /* Center cards horizontally */
 }
