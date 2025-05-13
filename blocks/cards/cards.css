@@ -99,19 +99,15 @@
   display: inline-block;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .cards-wrapper > .cards > ul {
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .cards-wrapper > .cards > ul > li {
     max-width: 38vw;
     min-width: 120px;
     margin-bottom: 24px;
   }
-}
-
-.cards.cards20 {
-  background: #fff;
-  padding: 32px 0;
 }
