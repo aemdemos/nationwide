@@ -1,3 +1,4 @@
+
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -29,5 +30,104 @@
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+}
+
+.columns.columns1 {
+  background: #e9ebef !important;
+  border-radius: 12px !important;
+  padding: 32px !important;
+  box-sizing: border-box !important;
+}
+
+.columns.columns1 > div {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: 100%;
+}
+
+.columns.columns1 > div > div {
+  width: 100%;
+}
+
+.columns.columns1 p:first-of-type {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  font-size: 20px !important;
+  line-height: 1.4 !important;
+  color: #51576a !important;
+  margin: 0 0 24px !important;
+  font-weight: 400 !important;
+  font-family: var(--body-font-family) !important;
+  background: none !important;
+  padding: 0 !important;
+}
+
+.columns.columns1 p:first-of-type::before {
+  content: "i";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  background: #102346;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 12px;
+  margin-top: 2px;
+  font-family: inherit;
+  flex-shrink: 0;
+}
+
+.columns.columns1 p:first-of-type span {
+  color: #102346 !important;
+  font-weight: 700 !important;
+  font-family: var(--body-font-family) !important;
+}
+
+.columns.columns1 .button-container {
+  margin-top: 0 !important;
+  width: 100%;
+  text-align: left !important;
+  padding: 0 !important;
+}
+
+.columns.columns1 .button-container .button {
+  background: none !important;
+  color: #102346 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  display: inline !important;
+  text-align: left !important;
+  line-height: 1.4 !important;
+  min-width: unset !important;
+  white-space: normal !important;
+  cursor: pointer !important;
+}
+
+/* Responsive padding adjustment */
+@media (width <= 600px) {
+  .columns.columns1 {
+    padding: 16px 8px !important;
+  }
+
+  .columns.columns1 p:first-of-type {
+    font-size: 16px !important;
+  }
+
+  .columns.columns1 .button-container .button {
+    font-size: 16px !important;
   }
 }
