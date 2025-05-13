@@ -58,7 +58,7 @@
   font-size: 20px !important;
   line-height: 1.4 !important;
   color: #51576a !important;
-  margin: 0 0 24px 0 !important;
+  margin: 0 0 24px !important;
   font-weight: 400 !important;
   font-family: var(--body-font-family) !important;
   background: none !important;
@@ -118,13 +118,15 @@
 }
 
 /* Responsive padding adjustment */
-@media (max-width: 600px) {
+@media (width <= 600px) {
   .columns.columns1 {
     padding: 16px 8px !important;
   }
+
   .columns.columns1 p:first-of-type {
     font-size: 16px !important;
   }
+
   .columns.columns1 .button-container .button {
     font-size: 16px !important;
   }
