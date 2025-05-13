@@ -1,4 +1,5 @@
 
+
 /* Base CSS */
 .hero-container .hero-wrapper {
   max-width: unset;
@@ -105,3 +106,106 @@
   background-color: #E4002B; /* Button hover background color */
   color: #FFF; /* Button hover text color */
 }
+
+/* Merged CSS for .hero.hero34 */
+.hero.hero34 {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Center content horizontally */
+  align-items: flex-start; /* Align content to the left */
+  background-color: #071744; /* Dark navy background */
+  height: 100vh; /* Full viewport height */
+  padding: 0 3rem; /* Add horizontal padding */
+}
+
+.hero.hero34 > div {
+  display: flex; /* Flex container for main content */
+  flex-direction: column; /* Stack content vertically */
+  max-width: 90%; /* Increase content width for better readability */
+  align-items: flex-start; /* Maintain left alignment */
+}
+
+.hero.hero34 > div > div {
+  display: flex; /* Nested flex container */
+  flex-direction: column; /* Ensure headline, subtitle, and button stack vertically */
+}
+
+.hero.hero34 > div > div > p:first-child {
+  font-size: 3.5rem; /* Large font size for headline */
+  color: #FFFFFF; /* White text color */
+  line-height: 1.4; /* Loose line height for readability */
+  margin-bottom: 1rem; /* Ensure proportional spacing below headline */
+}
+
+.hero.hero34 > div > div > p:first-child span {
+  color: #E2001A; /* Bright red color for emphasized text */
+}
+
+.hero.hero34 > div > div > p:nth-child(2) {
+  font-size: 1rem; /* Subtitle font size */
+  color: #FFFFFF; /* White text color */
+  line-height: 1.6; /* Increase line height for readability */
+  margin-bottom: 0.5rem; /* Reduce spacing below subtitle */
+}
+
+.hero.hero34 > div > div > p.button-container {
+  display: flex; /* Flex container for button alignment */
+  justify-content: flex-start; /* Align button to the left */
+  margin-top: 0.5rem; /* Reduce gap above button */
+}
+
+.hero.hero34 > div > div > p.button-container .button {
+  background-color: #FFF; /* White button background */
+  color: #071744; /* Navy blue button text */
+  font-size: 1rem; /* Font size for button text */
+  font-weight: bold; /* Bold button text */
+  padding: 0.5rem 1rem; /* Button padding */
+  border-radius: 25px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  text-align: center; /* Center text within button */
+  border: none; /* Remove border */
+}
+
+.hero.hero34 > div > div > p.button-container .button:hover {
+  background-color: #E2001A; /* Red hover background */
+  color: #FFFFFF; /* White hover text */
+}
+
+.hero-container > .hero-wrapper {
+  max-width: unset; /* Allow hero to span entire width */
+  padding: 0; /* Remove default padding */
+}
+
+@media (max-width: 768px) {
+  .hero.hero34 {
+    flex-direction: column; /* Stack elements vertically for smaller screens */
+    align-items: flex-start; /* Align content to the left */
+    padding: 2rem; /* Adjust padding for responsiveness */
+  }
+
+  .hero.hero34 > div {
+    flex-direction: column; /* Stack content vertically on small screens */
+    max-width: 100%; /* Allow full width */
+  }
+
+  .hero.hero34 > div > div {
+    flex-direction: column; /* Ensure text and button stack vertically */
+    align-items: flex-start; /* Maintain left alignment */
+  }
+
+  .hero.hero34 > div > div > p:first-child {
+    font-size: 2.5rem; /* Smaller headline size */
+    margin-bottom: 1rem; /* Adjust spacing below headline */
+  }
+
+  .hero.hero34 > div > div > p:nth-child(2) {
+    font-size: 0.9rem; /* Smaller subtitle size */
+    margin-bottom: 0.5rem; /* Adjust spacing below subtitle */
+  }
+
+  .hero.hero34 > div > div > p.button-container .button {
+    font-size: 0.9rem; /* Adjust button text size */
+    padding: 0.4rem 0.8rem; /* Adjust button padding */
+  }
+}
+
