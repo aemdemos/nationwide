@@ -1,4 +1,5 @@
 
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -134,3 +135,67 @@
     padding: 10px 20px;
   }
 }
+
+/* --- merged .hero.hero42 --- */
+.hero.hero42 {
+  display: flex;
+  flex-direction: column; /* Ensures elements are stacked vertically */
+  justify-content: center; /* Centers content vertically */
+  align-items: center; /* Centers content horizontally */
+  background-color: #061a44; /* Deep navy blue background */
+  padding: 40px; /* Adds padding around the block */
+  max-width: 800px; /* Restricts the block width for better readability */
+  margin: 0 auto; /* Centers the block horizontally */
+}
+
+.hero.hero42 > div:first-child {
+  display: flex;
+  flex-direction: column; /* Ensures nested elements stack vertically */
+  align-items: flex-start; /* Left-aligns text content */
+  text-align: left; /* Maintains text alignment */
+  color: #ffffff; /* White text color for readability */
+}
+
+.hero.hero42 > div:first-child p:first-of-type {
+  font-size: 32px; /* Title size */
+  font-weight: bold; /* Bold font for the title */
+  margin-bottom: 20px; /* Adds spacing below the title */
+}
+
+.hero.hero42 > div:first-child p:not(:first-of-type):not(.button-container) {
+  font-size: 16px; /* Paragraph text size */
+  margin-bottom: 15px; /* Consistent spacing between paragraphs */
+}
+
+.hero.hero42 .button-container {
+  margin-top: 30px; /* Adds spacing above the button */
+  text-align: center; /* Center-aligns the button */
+}
+
+.hero.hero42 .button {
+  background: #ffffff; /* White button background */
+  color: #061a44; /* Navy blue text color */
+  font-weight: bold;
+  font-size: 16px; /* Button text size */
+  padding: 10px 20px; /* Button padding */
+  border-radius: 25px; /* Fully rounded corners (pill-shaped) */
+  text-decoration: none;
+  display: inline-block; /* Ensures inline-block button */
+}
+
+@media (max-width: 768px) {
+  .hero.hero42 {
+    padding: 20px; /* Reduces padding for smaller screens */
+    max-width: 100%; /* Ensures the block spans the full width */
+  }
+
+  .hero.hero42 > div:first-child {
+    text-align: center; /* Center-align text for mobile */
+  }
+
+  .hero.hero42 .button {
+    font-size: 14px; /* Adjust button size for smaller screens */
+    padding: 8px 16px; /* Adjust button padding for smaller screens */
+  }
+}
+
