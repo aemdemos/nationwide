@@ -1,11 +1,8 @@
-
+/* Shared base styles (applies to all cards) */
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  grid-gap: 24px;
 }
 
 .cards > ul > li {
@@ -27,31 +24,31 @@
   object-fit: cover;
 }
 
-.cards.cards20 {
+/* ---------------------- */
+
+/* 🎨 .cards.cards20 styles */
+
+/* ---------------------- */
+.cards-wrapper > .cards.cards20 {
   background: #fff;
   padding: 32px 0;
 }
 
-.cards-wrapper > .cards {
-  background: #fff;
-  padding: 32px 0;
-}
-
-.cards-wrapper > .cards > ul {
+.cards-wrapper > .cards.cards20 > ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   gap: 0;
-  list-style: none;
+  width: 100%;
   margin: 0;
   padding: 0;
-  width: 100%;
+  list-style: none;
 }
 
-.cards-wrapper > .cards > ul > li {
+.cards-wrapper > .cards.cards20 > ul > li {
   display: flex;
-  flex-direction: column; /* Stack icon over label within each card */
+  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background: transparent;
@@ -63,7 +60,7 @@
   padding: 0;
 }
 
-.cards-wrapper .cards-card-image {
+.cards-wrapper > .cards.cards20 .cards-card-image {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +69,7 @@
   margin-bottom: 20px;
 }
 
-.cards-wrapper .cards-card-image img {
+.cards-wrapper > .cards.cards20 .cards-card-image img {
   width: 48px;
   height: 48px;
   object-fit: contain;
@@ -80,14 +77,13 @@
   margin: 0 auto;
 }
 
-.cards-wrapper .cards-card-body {
+.cards-wrapper > .cards.cards20 .cards-card-body {
   width: 100%;
   text-align: center;
-  display: block;
   padding: 0;
 }
 
-.cards-wrapper .cards-card-body p {
+.cards-wrapper > .cards.cards20 .cards-card-body p {
   margin: 0;
   font-weight: 900;
   font-size: 20px;
@@ -101,119 +97,170 @@
 }
 
 @media (width <= 900px) {
-  .cards-wrapper > .cards > ul {
+  .cards-wrapper > .cards.cards20 > ul {
     flex-wrap: wrap;
     justify-content: center;
   }
 
-  .cards-wrapper > .cards > ul > li {
+  .cards-wrapper > .cards.cards20 > ul > li {
     max-width: 38vw;
     min-width: 120px;
     margin-bottom: 24px;
   }
 }
 
-.cards-wrapper {
-  display: flex; /* Use flexbox for overall layout */
-  justify-content: center; /* Center the cards horizontally */
-  gap: 24px; /* Add spacing between the cards */
-  padding: 20px; /* Add padding around the container */
+/* ---------------------- */
+
+/* 🧑‍🚀 .cards.cards21 styles */
+
+/* ---------------------- */
+.cards-wrapper > .cards.cards21 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 48px;
+  background: transparent;
+  padding: 0;
 }
 
-.cards-wrapper > .cards {
-  display: flex; /* Flexbox layout for cards */
-  flex-direction: row; /* Ensure cards are side by side */
-  justify-content: center; /* Center cards within the container */
-  gap: 24px; /* Add space between cards */
-  width: 100%; /* Ensure cards span the container */
-}
-
-.cards-wrapper > .cards > ul {
-  list-style: none; /* Remove bullet points */
+.cards-wrapper > .cards.cards21 > ul {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  justify-content: center;
+  width: 100%;
   margin: 0;
   padding: 0;
-  display: flex; /* Align cards in a row */
-  flex-direction: row; /* Ensure cards are side by side */
-  gap: 24px; /* Space between cards */
+  list-style: none;
 }
 
-.cards-wrapper > .cards > ul > li {
-  background-color: #ffffff; /* White background for text section */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-  overflow: hidden; /* Prevent content overflow */
-  display: flex;
-  flex-direction: column; /* Stack image above text */
-  width: 380px; /* Fixed width for cards */
-}
-
-.cards-wrapper .cards-card-image {
-  display: flex; /* Center image horizontally */
-  justify-content: center; /* Horizontal centering */
-  align-items: center; /* Vertical centering */
-  background-color: #f4ede4; /* Beige background for image section */
-  padding: 40px; /* Increase padding for breathing room */
-}
-
-.cards-wrapper .cards-card-image img {
-  max-width: 90%; /* Increase image size */
-  height: auto;
-}
-
-.cards-wrapper .cards-card-body {
-  padding: 20px; /* Add padding inside text section */
-  text-align: left; /* Align text to the left */
-}
-
-.cards-wrapper .cards-card-body p strong {
-  font-size: 20px; /* Larger font size for title */
-  color: #0c2340; /* Navy blue color for title */
-}
-
-.cards-wrapper .cards-card-body p {
-  font-size: 16px; /* Regular font size for body text */
-  color: #5c5c5c; /* Gray color for body text */
-  margin: 10px 0; /* Add spacing between paragraphs */
-}
-
-.cards-wrapper .cards-card-body .button-container a {
-  color: #ffffff; /* White button text */
-  background-color: #3b63fb; /* Blue button background */
-  display: inline-block;
-  text-align: center; /* Center button text */
-  padding: 12px 24px; /* Adjust button padding */
-  border-radius: 25px; /* Rounded button */
-  text-decoration: none; /* Remove underline */
-  font-weight: bold; /* Bold button text */
-  margin-top: 20px; /* Add spacing above the button */
-}
-
-@media (max-width: 768px) {
-  .cards-wrapper > .cards {
-    flex-direction: column; /* Stack cards vertically on smaller screens */
-    gap: 20px; /* Increase gap for readability */
-  }
-
-  .cards-wrapper > .cards > ul > li {
-    width: 100%; /* Full width for smaller screens */
-  }
-
-  .cards-wrapper .cards-card-image {
-    padding: 30px; /* Adjust padding for smaller screens */
-  }
-
-  .cards-wrapper .cards-card-body {
-    padding: 20px; /* Adjust padding for smaller screens */
-  }
-}
-
-/* Merged CSS for .cards.cards21 */
-.cards.cards21 {
+.cards-wrapper > .cards.cards21 > ul > li {
   background: #fff;
-  padding: 32px 0;
-  display: flex; /* Flexbox layout */
-  flex-direction: row; /* Ensure cards are side by side */
-  justify-content: center; /* Center cards horizontally */
-  gap: 24px; /* Space between cards */
-  width: 100%; /* Ensure cards span the container */
+  border-radius: 24px;
+  box-shadow: 0 4px 32px rgb(27 36 65 / 9%);
+  overflow: hidden;
+  max-width: 600px;
+  min-width: 390px;
+  flex: 1 1 0;
+  border: none;
+  padding: 0;
+  display: block;
+  align-items: unset;
+}
+
+.cards-wrapper > .cards.cards21 .cards-card-image {
+  background: #f5efe6;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 18px 0 12px;
+}
+
+.cards-wrapper > .cards.cards21 .cards-card-image img {
+  max-width: 260px;
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 8px 24px rgb(27 36 65 / 8%));
+  margin: 0 auto;
+}
+
+.cards-wrapper > .cards.cards21 .cards-card-body {
+  background: #fff;
+  padding: 10px 32px 36px;
+  display: block;
+  text-align: left;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cards-wrapper > .cards.cards21 .cards-card-body p {
+  color: #5c6470;
+  font-size: 1rem;
+  font-family: inherit;
+  margin: 0 0 20px;
+  line-height: 1.6;
+  font-weight: 400;
+  text-align: left;
+  text-decoration: none;
+}
+
+.cards-wrapper > .cards.cards21 .cards-card-body p strong {
+  display: block;
+  font-size: 2rem;
+  color: #0a1744;
+  font-weight: 700;
+  margin-bottom: 24px;
+  margin-top: 0;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+}
+
+.cards-wrapper > .cards.cards21 .button-container {
+  margin-top: 10px;
+}
+
+.cards-wrapper > .cards.cards21 .button-container .button {
+  background: none !important;
+  border: none !important;
+  color: #0a1744 !important;
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: underline !important;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  cursor: pointer;
+  transition: color 0.2s;
+  line-height: 1.5;
+  display: inline;
+}
+
+.cards-wrapper > .cards.cards21 .button-container .button:hover,
+.cards-wrapper > .cards.cards21 .button-container .button:focus {
+  color: #1250d3 !important;
+  text-decoration: underline;
+  background: none !important;
+}
+
+@media (width <= 1100px) {
+  .cards-wrapper > .cards.cards21 > ul {
+    gap: 28px;
+  }
+
+  .cards-wrapper > .cards.cards21 > ul > li {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .cards-wrapper > .cards.cards21 .cards-card-body {
+    padding: 6px 14px 24px;
+  }
+
+  .cards-wrapper > .cards.cards21 .cards-card-image {
+    padding: 10px 0 8px;
+  }
+}
+
+@media (width <= 900px) {
+  .cards-wrapper > .cards.cards21 > ul {
+    flex-direction: column;
+    gap: 32px;
+    align-items: stretch;
+  }
+
+  .cards-wrapper > .cards.cards21 > ul > li {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .cards-wrapper > .cards.cards21 .cards-card-body {
+    padding: 4px 8px 16px;
+  }
+
+  .cards-wrapper > .cards.cards21 .cards-card-image {
+    padding: 8px 0 6px;
+  }
 }
