@@ -211,8 +211,9 @@
 .cards.cards21 {
   background: #fff;
   padding: 32px 0;
-  display: flex; /* Flexbox layout to overwrite grid */
-  flex-direction: row; /* Make cards layout side-by-side */
-  gap: 24px; /* Add space between cards */
+  display: flex; /* Flexbox layout */
+  flex-direction: row; /* Ensure cards are side by side */
   justify-content: center; /* Center cards horizontally */
+  gap: 24px; /* Space between cards */
+  width: 100%; /* Ensure cards span the container */
 }
