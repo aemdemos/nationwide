@@ -1,3 +1,6 @@
+
+
+/* Base CSS */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,8 +8,14 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  padding: 40px 40px 0 40px; /* From Generated CSS */
+  min-height: 300px; /* From Base CSS */
+  background-color: #071349; /* From Generated CSS */
+  display: flex; /* From Generated CSS */
+  flex-direction: row; /* From Generated CSS */
+  align-items: flex-start; /* From Generated CSS */
+  justify-content: flex-start; /* From Generated CSS */
+  height: 100vh; /* From Generated CSS */
 }
 
 .hero h1 {
@@ -35,3 +44,66 @@
     padding: 40px 32px;
   }
 }
+
+/* Generated CSS */
+.hero-container > .hero-wrapper {
+  max-width: unset;
+  padding: 40px 40px 0 40px; /* Position closer to the top-left */
+  background-color: #071349; /* Navy blue background */
+  display: flex; /* Flexbox layout */
+  flex-direction: row; /* Ensure side-by-side layout */
+  align-items: flex-start; /* Align content at the top */
+  justify-content: flex-start; /* Remove vertical centering */
+  height: 100vh; /* Full viewport height */
+}
+
+.hero-container > .hero-wrapper > .block.hero {
+  max-width: 800px; /* Restrict width of text content */
+  color: #FFFFFF; /* Text color */
+  flex: 1; /* Allow content to adapt */
+}
+
+.hero-container > .hero-wrapper > .block.hero p:first-child {
+  font-family: "Georgia", serif; /* Serif font for heading */
+  font-size: 64px; /* Larger heading size */
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 32px; /* Increase spacing below heading */
+  color: #FFFFFF; /* White text for heading */
+}
+
+.hero-container > .hero-wrapper > .block.hero p:first-child span {
+  color: #E4002B; /* Bright red for emphasized words */
+}
+
+.hero-container > .hero-wrapper > .block.hero p:nth-child(2) {
+  font-family: "Arial", sans-serif; /* Sans-serif font for subheading */
+  font-size: 18px; /* Smaller size for subheading */
+  color: #C2C2C2; /* Light gray text color */
+  margin-bottom: 48px; /* Increase spacing below subheading */
+}
+
+.hero-container > .hero-wrapper > .block.hero .button-container {
+  margin-top: 48px; /* Add more space above button */
+  display: flex; /* Proper alignment for button */
+  justify-content: flex-start; /* Align button to the left */
+}
+
+.hero-container > .hero-wrapper > .block.hero .button {
+  background-color: #FFFFFF; /* Button background color */
+  color: #071349; /* Navy blue text color */
+  font-family: "Arial", sans-serif;
+  font-size: 18px; /* Button font size */
+  font-weight: bold;
+  padding: 12px 24px; /* Adjust button size */
+  text-align: center; /* Center align button text */
+  border-radius: 50px; /* Fully rounded corners */
+  border: none; /* Remove border */
+  text-decoration: none; /* Remove underline */
+}
+
+.hero-container > .hero-wrapper > .block.hero .button:hover {
+  background-color: #E4002B; /* Button hover background color */
+  color: #FFFFFF; /* Button hover text color */
+}
+
