@@ -1,20 +1,92 @@
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: var(--background-color-header);
+  font-size: 16px;
+  color: #fff;
+  font-weight: 400;
+  padding-bottom: 1px;
 }
 
 footer .footer > div {
   margin: auto;
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 20px 24px 5px;
+  display: grid;
+  grid-template-areas:
+    'links links'
+    'disclaimer social';
+  grid-template-columns: auto 31%;
+  border-bottom: 5px solid rgb(249, 56, 61);
 }
 
 footer .footer p {
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
-  }
+footer .footer ul {
+  margin: 0;
+}
+
+footer .footer a:any-link {
+  color: #fff;
+}
+
+footer .footer a:hover {
+  color: #80ACFF;
+}
+
+footer .footer .section.links {
+  grid-area: links;
+}
+
+footer .footer .section.disclaimer {
+  grid-area: disclaimer;
+}
+
+footer .footer .section.social {
+  grid-area: social;
+}
+
+footer .footer .section.links {
+  border-bottom: 1px solid #fff;
+  margin-bottom: 25px;
+}
+
+footer .footer .section.links ul {
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+footer .footer .section.links > div > ul {
+  display: flex;
+  gap: 50px;
+  font-size: 22px;
+}
+
+footer .footer .section.links > div > ul > li {
+  flex-basis: 33.3333%;
+}
+
+footer .footer .section.links > div > ul > li > ul {
+  border-top: 1px solid #fff;
+  margin-top: 5px;
+}
+
+footer .footer .section.links > div > ul > li > ul > li {
+  font-size: 16px;
+  margin-top: 12px;
+}
+
+footer .footer .section.disclaimer a:any-link {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+footer .footer .section.disclaimer p {
+  margin-bottom: 15px;
+}
+
+footer .footer .section.social img {
+  width: 220px;
+  height: auto;
 }
