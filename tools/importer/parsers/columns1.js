@@ -1,62 +1,58 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper function for extracting image data
-  const extractImage = (img) => {
-    if (!img) return null;
-    const imageLink = document.createElement('a');
-    imageLink.href = img.src;
-    imageLink.textContent = img.alt || 'Image';
-    return imageLink;
-  };
-
-  // Helper function for extracting list data
-  const extractList = (ul) => {
-    if (!ul) return null;
-    const listItems = Array.from(ul.querySelectorAll('li')).map(item => item.textContent.trim());
-    return listItems.join(', ');
-  };
-
-  // Helper function for extracting heading and paragraph data
-  const extractTextContent = (container, selector) => {
-    const element = container.querySelector(selector);
-    return element ? element.textContent.trim() : '';
-  };
-
   const hr = document.createElement('hr');
-  let blockTable;
 
-  // Parse element based on its structure
-  if (element.querySelector('[data-testid="MessagingFramework"]')) {
-    const header = extractTextContent(element, 'h2');
-    const paragraph = extractTextContent(element, '.vertical-rhythm--richText');
+  // Process Image with content blocks
+  const blocks = [];
+  element.querySelectorAll('.NelComponents__Grid-sc-vsly48-37').forEach((grid) => {
+    const imageCell = [];
+    const contentCell = [];
 
-    // Ensure table header matches example
-    const tableRows = [
-      ['Columns'],
-      [`${header} ${paragraph}`],
-    ];
+    const imageArea = grid.querySelector('.ImageWithContent__StyledImageArea-sc-rcc1rj-0 img');
+    if (imageArea) {
+      const imgElement = document.createElement('img');
+      imgElement.src = imageArea.src;
+      imgElement.alt = imageArea.alt;
+      imageCell.push(imgElement);
+    }
 
-    blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
-  } else if (element.querySelector('[data-component="ImageWithContent"]')) {
-    const heading = extractTextContent(element, 'h3');
-    const paragraph = extractTextContent(element, 'p');
-    const image = extractImage(element.querySelector('img'));
-    const list = extractList(element.querySelector('ul'));
+    const contentArea = grid.querySelector('.ImageWithContent__StyledContentArea-sc-rcc1rj-1');
+    if (contentArea) {
+      const heading = contentArea.querySelector('h3, h2');
+      const richText = contentArea.querySelector('.RichText__StyledRichTextContent-sc-1j7koit-0');
 
-    // Ensure table header matches example
-    const tableRows = [
-      ['Columns'],
-      [
-        heading,
-        paragraph,
-        list,
-        image,
-      ].filter(Boolean),
-    ];
+      if (heading) {
+        const headingElement = document.createElement(heading.tagName);
+        headingElement.textContent = heading.textContent.trim();
+        contentCell.push(headingElement);
+      }
 
-    blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
+      if (richText) {
+        richText.querySelectorAll('p, ul').forEach(node => {
+          contentCell.push(node);
+        });
+      }
+    }
+
+    blocks.push([imageCell, contentCell]);
+  });
+
+  // Process Section Metadata if exists
+  const metadataBlocks = [];
+  const metadataElement = element.querySelector('[data-component="MessageCritical"]');
+  if (metadataElement) {
+    const metadataHeaderRow = ['Section Metadata'];
+    const metadataContentRow = [metadataElement.textContent.trim()];
+    metadataBlocks.push(metadataHeaderRow);
+    metadataBlocks.push(metadataContentRow);
   }
 
-  // Replace the element with parsed content
-  element.replaceWith(hr, blockTable);
+  const tables = blocks.map((block) => WebImporter.DOMUtils.createTable(block, document));
+  const metadataTable = metadataBlocks.length > 0 ? WebImporter.DOMUtils.createTable(metadataBlocks, document) : null;
+
+  element.replaceWith(
+    hr,
+    ...(metadataTable ? [metadataTable] : []),
+    ...tables
+  );
 }
