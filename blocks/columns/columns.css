@@ -1,5 +1,4 @@
 
-/* Base CSS */
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -34,160 +33,99 @@
   }
 }
 
-/* Generated CSS */
 .columns.columns1 {
-  background-color: #e8ebf0; /* Light gray background */
-  border-radius: 12px; /* Rounded corners */
-  padding: 20px; /* Uniform padding around the block */
-  display: flex; /* Flexbox for overall layout */
-  flex-direction: column; /* Vertical stacking for rows */
-  gap: 16px; /* Spacing between rows */
+  background: #e9ebef !important;
+  border-radius: 12px !important;
+  padding: 32px !important;
+  box-sizing: border-box !important;
 }
 
 .columns.columns1 > div {
-  display: flex; /* Flexbox for row layout */
-  flex-direction: row; /* Align elements side by side */
-  align-items: center; /* Vertically align elements */
-  justify-content: space-between; /* Ensure proper spacing between rows */
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  width: 100%;
 }
 
-.columns.columns1 > div:first-child {
-  display: flex; /* Flexbox for first row layout */
-  flex-direction: row; /* Align icon and text side by side */
-  align-items: center; /* Vertically align icon with text */
-  gap: 8px; /* Space between icon and text */
+.columns.columns1 > div > div {
+  width: 100%;
 }
 
-.columns.columns1 > div:first-child p:first-of-type::before {
-  content: 'i'; /* Icon content */
-  display: inline-block; /* Inline layout */
-  width: 20px; /* Icon size */
-  height: 20px; /* Icon size */
-  background-color: #102551; /* Navy blue background */
-  color: white; /* White "i" text */
-  font-size: 14px; /* Font size for "i" */
-  font-weight: bold; /* Bold "i" */
-  border-radius: 50%; /* Circular icon */
-  text-align: center; /* Center "i" horizontally */
-  line-height: 20px; /* Center "i" vertically */
-  margin-right: 8px; /* Space between icon and text */
+.columns.columns1 p:first-of-type {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  font-size: 20px !important;
+  line-height: 1.4 !important;
+  color: #51576a !important;
+  margin: 0 0 24px 0 !important;
+  font-weight: 400 !important;
+  font-family: var(--body-font-family) !important;
+  background: none !important;
+  padding: 0 !important;
 }
 
-.columns.columns1 > div:first-child p:first-of-type {
-  font-family: var(--body-font-family); /* Use base font */
-  font-size: 16px; /* Font size for headline */
-  font-weight: bold; /* Bold headline text */
-  color: #102551; /* Navy blue headline color */
-  margin: 0; /* Remove default margin */
+.columns.columns1 p:first-of-type::before {
+  content: "i";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  min-height: 24px;
+  background: #102346;
+  color: #fff;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 12px;
+  margin-top: 2px;
+  font-family: inherit;
+  flex-shrink: 0;
 }
 
-.columns.columns1 > div:first-child p:not(:first-of-type) {
-  font-family: var(--body-font-family); /* Use base font */
-  font-size: 14px; /* Font size for description */
-  font-weight: normal; /* Normal weight */
-  color: #5f6470; /* Gray description text */
-  margin: 0; /* Remove default margin */
+.columns.columns1 p:first-of-type span {
+  color: #102346 !important;
+  font-weight: 700 !important;
+  font-family: var(--body-font-family) !important;
 }
 
-.columns.columns1 > div:last-child {
-  display: flex; /* Flexbox for second row layout */
-  flex-direction: row; /* Align button side by side if needed */
-  align-items: flex-start; /* Align button to the top */
-  justify-content: flex-start; /* Align button to the left */
+.columns.columns1 .button-container {
+  margin-top: 0 !important;
+  width: 100%;
+  text-align: left !important;
+  padding: 0 !important;
 }
 
-.columns.columns1 .button-container a {
-  font-family: var(--body-font-family); /* Base font */
-  font-size: 16px; /* Font size */
-  font-weight: bold; /* Bold weight for emphasis */
-  color: #102551; /* Navy blue text color */
-  text-decoration: underline; /* Underlined link */
-  background: none; /* No background */
-  border: none; /* No border */
-  padding: 0; /* No padding */
-  border-radius: 0; /* No rounded corners */
-  transition: color 0.3s ease; /* Smooth hover effect */
+.columns.columns1 .button-container .button {
+  background: none !important;
+  color: #102346 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  font-size: 19px !important;
+  font-weight: 700 !important;
+  text-decoration: underline !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  display: inline !important;
+  text-align: left !important;
+  line-height: 1.4 !important;
+  min-width: unset !important;
+  white-space: normal !important;
+  cursor: pointer !important;
 }
 
-.columns.columns1 .button-container a:hover {
-  color: #0a3761; /* Slightly lighter navy blue on hover */
-}
-
-/* Merged CSS for .columns.columns1 */
-.columns.columns1 {
-  background-color: #e8ebf0; /* Light gray background */
-  border-radius: 12px; /* Rounded corners */
-  padding: 20px; /* Uniform padding around the block */
-  display: flex; /* Flexbox for overall layout */
-  flex-direction: column; /* Vertical stacking for rows */
-  gap: 16px; /* Spacing between rows */
-}
-
-.columns.columns1 > div {
-  display: flex; /* Flexbox for row layout */
-  flex-direction: row; /* Align elements side by side */
-  align-items: center; /* Vertically align elements */
-  justify-content: space-between; /* Ensure proper spacing between rows */
-}
-
-.columns.columns1 > div:first-child {
-  display: flex; /* Flexbox for first row layout */
-  flex-direction: row; /* Align icon and text side by side */
-  align-items: center; /* Vertically align icon with text */
-  gap: 8px; /* Space between icon and text */
-}
-
-.columns.columns1 > div:first-child p:first-of-type::before {
-  content: 'i'; /* Icon content */
-  display: inline-block; /* Inline layout */
-  width: 20px; /* Icon size */
-  height: 20px; /* Icon size */
-  background-color: #102551; /* Navy blue background */
-  color: white; /* White "i" text */
-  font-size: 14px; /* Font size for "i" */
-  font-weight: bold; /* Bold "i" */
-  border-radius: 50%; /* Circular icon */
-  text-align: center; /* Center "i" horizontally */
-  line-height: 20px; /* Center "i" vertically */
-  margin-right: 8px; /* Space between icon and text */
-}
-
-.columns.columns1 > div:first-child p:first-of-type {
-  font-family: var(--body-font-family); /* Use base font */
-  font-size: 16px; /* Font size for headline */
-  font-weight: bold; /* Bold headline text */
-  color: #102551; /* Navy blue headline color */
-  margin: 0; /* Remove default margin */
-}
-
-.columns.columns1 > div:first-child p:not(:first-of-type) {
-  font-family: var(--body-font-family); /* Use base font */
-  font-size: 14px; /* Font size for description */
-  font-weight: normal; /* Normal weight */
-  color: #5f6470; /* Gray description text */
-  margin: 0; /* Remove default margin */
-}
-
-.columns.columns1 > div:last-child {
-  display: flex; /* Flexbox for second row layout */
-  flex-direction: row; /* Align button side by side if needed */
-  align-items: flex-start; /* Align button to the top */
-  justify-content: flex-start; /* Align button to the left */
-}
-
-.columns.columns1 .button-container a {
-  font-family: var(--body-font-family); /* Base font */
-  font-size: 16px; /* Font size */
-  font-weight: bold; /* Bold weight for emphasis */
-  color: #102551; /* Navy blue text color */
-  text-decoration: underline; /* Underlined link */
-  background: none; /* No background */
-  border: none; /* No border */
-  padding: 0; /* No padding */
-  border-radius: 0; /* No rounded corners */
-  transition: color 0.3s ease; /* Smooth hover effect */
-}
-
-.columns.columns1 .button-container a:hover {
-  color: #0a3761; /* Slightly lighter navy blue on hover */
+/* Responsive padding adjustment */
+@media (max-width: 600px) {
+  .columns.columns1 {
+    padding: 16px 8px !important;
+  }
+  .columns.columns1 p:first-of-type {
+    font-size: 16px !important;
+  }
+  .columns.columns1 .button-container .button {
+    font-size: 16px !important;
+  }
 }
