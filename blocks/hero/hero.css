@@ -1,5 +1,4 @@
 
-
 /* Base CSS */
 .hero-container .hero-wrapper {
   max-width: unset;
@@ -10,11 +9,11 @@
   position: relative;
   padding: 40px 40px 0; /* From Generated CSS */
   min-height: 300px; /* From Base CSS */
-  background-color: #071349; /* From Generated CSS */
+  background-color: #081C43; /* Updated from Generated CSS */
   display: flex; /* From Generated CSS */
   flex-direction: row; /* From Generated CSS */
-  align-items: flex-start; /* From Generated CSS */
-  justify-content: flex-start; /* From Generated CSS */
+  align-items: center; /* Updated from Generated CSS */
+  justify-content: center; /* Updated from Generated CSS */
   height: 100vh; /* From Generated CSS */
 }
 
@@ -106,4 +105,3 @@
   background-color: #E4002B; /* Button hover background color */
   color: #FFF; /* Button hover text color */
 }
-
