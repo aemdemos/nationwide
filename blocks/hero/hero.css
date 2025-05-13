@@ -1,3 +1,5 @@
+
+/* Base CSS */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -34,4 +36,139 @@
   .hero {
     padding: 40px 32px;
   }
+}
+
+/* Generated CSS */
+.hero-container > .hero-wrapper {
+  max-width: unset; /* Ensure the block spans the full width of the page */
+  padding: 0; /* Remove extra padding around the block */
+}
+
+.hero-container > .hero-wrapper > .block.hero {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Vertically center content within the block */
+  align-items: flex-start; /* Align content to the left */
+  background-color: #0E2249; /* Dark blue background */
+  color: #FFFFFF; /* Default text color */
+  padding: 50px; /* Space inside the block */
+  width: 100%; /* Full-width block */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child {
+  flex: unset; /* Remove horizontal stretching */
+  margin-left: 0; /* Align content to the far left */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child p:first-child {
+  font-family: "Georgia", serif; /* Example serif font */
+  font-size: 2.5rem; /* Large heading size */
+  font-weight: bold; /* Bold heading */
+  line-height: 1.2; /* Improve readability */
+  margin: 0; /* Remove default margin */
+  max-width: 800px; /* Limit width of heading */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child p:first-child span {
+  color: #E02728; /* Red color for emphasized words */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child p:nth-child(2) {
+  font-family: "Arial", sans-serif; /* Example sans-serif font */
+  font-size: 1rem; /* Smaller size for subtext */
+  margin-top: 10px; /* Add spacing below heading */
+  margin-bottom: 10px; /* Reduce unnecessary vertical space */
+  max-width: 600px; /* Limit the width of subtext */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child .button-container {
+  display: flex; /* Use flex for button alignment */
+  flex-direction: row; /* Maintain horizontal alignment */
+  justify-content: flex-start; /* Align button to the left */
+  margin-top: 15px; /* Reduce spacing above button */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child .button-container a {
+  background-color: #FFFFFF; /* White button background */
+  color: #0E2249; /* Dark blue text color */
+  border-radius: 25px; /* Rounded corners (pill-shaped button) */
+  padding: 12px 25px; /* Increase padding inside the button */
+  text-decoration: none; /* Remove underline */
+  font-family: "Arial", sans-serif; /* Example font for button */
+  font-size: 1.2rem; /* Button text size */
+  font-weight: bold; /* Bold text */
+  text-align: center; /* Center button text */
+  display: inline-block; /* Ensure block-like behavior */
+}
+
+.hero-container > .hero-wrapper > .block.hero > div:first-child .button-container a:hover {
+  background-color: #E02728; /* Red background on hover */
+  color: #FFFFFF; /* White text on hover */
+}
+
+/* Merged CSS for .hero.hero34 */
+.hero.hero34 {
+  position: relative;
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  justify-content: center; /* Vertically center content */
+  align-items: flex-start; /* Align content to the left */
+  padding: 50px; /* Space inside the block */
+  min-height: 300px; /* Match original min-height */
+  background-color: #0E2249; /* Dark blue background */
+  color: #FFFFFF; /* Default text color */
+  width: 100%; /* Full-width block */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.hero.hero34 > div:first-child {
+  flex: unset; /* Remove horizontal stretching */
+  margin-left: 0; /* Align content to the far left */
+}
+
+.hero.hero34 > div:first-child p:first-child {
+  font-family: "Georgia", serif; /* Example serif font */
+  font-size: 2.5rem; /* Large heading size */
+  font-weight: bold; /* Bold heading */
+  line-height: 1.2; /* Improve readability */
+  margin: 0; /* Remove default margin */
+  max-width: 800px; /* Limit width of heading */
+}
+
+.hero.hero34 > div:first-child p:first-child span {
+  color: #E02728; /* Red color for emphasized words */
+}
+
+.hero.hero34 > div:first-child p:nth-child(2) {
+  font-family: "Arial", sans-serif; /* Example sans-serif font */
+  font-size: 1rem; /* Smaller size for subtext */
+  margin-top: 10px; /* Add spacing below heading */
+  margin-bottom: 10px; /* Reduce unnecessary vertical space */
+  max-width: 600px; /* Limit the width of subtext */
+}
+
+.hero.hero34 > div:first-child .button-container {
+  display: flex; /* Ensure button aligns properly */
+  flex-direction: row; /* Maintain horizontal alignment */
+  justify-content: flex-start; /* Align button to the left */
+  margin-top: 15px; /* Reduce spacing above button */
+}
+
+.hero.hero34 > div:first-child .button-container a {
+  background-color: #FFFFFF; /* White button background */
+  color: #0E2249; /* Dark blue text color */
+  border-radius: 25px; /* Rounded corners (pill-shaped button) */
+  padding: 12px 25px; /* Increase padding inside the button */
+  text-decoration: none; /* Remove underline */
+  font-family: "Arial", sans-serif; /* Example font for button */
+  font-size: 1.2rem; /* Button text size */
+  font-weight: bold; /* Bold text */
+  text-align: center; /* Center button text */
+  display: inline-block; /* Ensure block-like behavior */
+}
+
+.hero.hero34 > div:first-child .button-container a:hover {
+  background-color: #E02728; /* Red background on hover */
+  color: #FFFFFF; /* White text on hover */
 }
