@@ -8,7 +8,7 @@
 
 .hero {
   position: relative;
-  padding: 40px 40px 0 40px; /* From Generated CSS */
+  padding: 40px 40px 0; /* From Generated CSS */
   min-height: 300px; /* From Base CSS */
   background-color: #071349; /* From Generated CSS */
   display: flex; /* From Generated CSS */
@@ -48,7 +48,7 @@
 /* Generated CSS */
 .hero-container > .hero-wrapper {
   max-width: unset;
-  padding: 40px 40px 0 40px; /* Position closer to the top-left */
+  padding: 40px 40px 0; /* Position closer to the top-left */
   background-color: #071349; /* Navy blue background */
   display: flex; /* Flexbox layout */
   flex-direction: row; /* Ensure side-by-side layout */
@@ -59,17 +59,17 @@
 
 .hero-container > .hero-wrapper > .block.hero {
   max-width: 800px; /* Restrict width of text content */
-  color: #FFFFFF; /* Text color */
+  color: #FFF; /* Text color */
   flex: 1; /* Allow content to adapt */
 }
 
 .hero-container > .hero-wrapper > .block.hero p:first-child {
-  font-family: "Georgia", serif; /* Serif font for heading */
+  font-family: Georgia, serif; /* Serif font for heading */
   font-size: 64px; /* Larger heading size */
   font-weight: bold;
   line-height: 1.2;
   margin-bottom: 32px; /* Increase spacing below heading */
-  color: #FFFFFF; /* White text for heading */
+  color: #FFF; /* White text for heading */
 }
 
 .hero-container > .hero-wrapper > .block.hero p:first-child span {
@@ -77,7 +77,7 @@
 }
 
 .hero-container > .hero-wrapper > .block.hero p:nth-child(2) {
-  font-family: "Arial", sans-serif; /* Sans-serif font for subheading */
+  font-family: Arial, sans-serif; /* Sans-serif font for subheading */
   font-size: 18px; /* Smaller size for subheading */
   color: #C2C2C2; /* Light gray text color */
   margin-bottom: 48px; /* Increase spacing below subheading */
@@ -90,9 +90,9 @@
 }
 
 .hero-container > .hero-wrapper > .block.hero .button {
-  background-color: #FFFFFF; /* Button background color */
+  background-color: #FFF; /* Button background color */
   color: #071349; /* Navy blue text color */
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 18px; /* Button font size */
   font-weight: bold;
   padding: 12px 24px; /* Adjust button size */
@@ -104,6 +104,6 @@
 
 .hero-container > .hero-wrapper > .block.hero .button:hover {
   background-color: #E4002B; /* Button hover background color */
-  color: #FFFFFF; /* Button hover text color */
+  color: #FFF; /* Button hover text color */
 }
 
