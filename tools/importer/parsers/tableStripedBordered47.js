@@ -1,45 +1,39 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const content = [];
-
-  // Check for Section Metadata in the example structure
-  const hr = document.createElement('hr');
-  content.push(hr);
-
-  const sectionMetadataTable = WebImporter.DOMUtils.createTable([
-    ['Section Metadata'],
-    ['Type', 'Table (striped, bordered)'],
-    ['Description', 'This block is used to organize tabular data into a grid of rows and columns, making it easier for readers to compare and analyze information. The `bordered` and `striped` variants should be used together when the table should have a border around each cell and every second row should have a background color set.'],
-  ], document);
-  content.push(sectionMetadataTable);
-
   const tables = element.querySelectorAll('table');
+  const parsedTables = [];
 
   tables.forEach((table) => {
-    const rows = [];
+    const rows = table.querySelectorAll('tr');
+    const headerRow = rows[0];
 
-    rows.push(['Table (striped, bordered)']); // Add header row dynamically
+    const headerCells = Array.from(headerRow.cells).map((cell) => cell.textContent.trim());
 
-    table.querySelectorAll('tr').forEach((row, index) => {
-      const cells = [];
+    const tableData = [headerCells];
 
-      row.querySelectorAll('th, td').forEach((cell) => {
-        if (cell.querySelector('a')) {
-          const link = document.createElement('a');
-          link.href = cell.querySelector('a').href;
-          link.textContent = cell.textContent.trim();
-          cells.push(link);
+    rows.forEach((row, index) => {
+      if (index === 0) return; // Skip the header row
+      
+      const cells = Array.from(row.cells).map((cell) => {
+        // Check if the cell contains a link
+        const link = cell.querySelector('a');
+        if (link) {
+          const anchor = document.createElement('a');
+          anchor.href = link.href;
+          anchor.textContent = link.textContent;
+          return anchor;
         } else {
-          cells.push(cell.textContent.trim());
+          return cell.textContent.trim();
         }
       });
 
-      rows.push(cells);
+      tableData.push(cells);
     });
 
-    const blockTable = WebImporter.DOMUtils.createTable(rows, document);
-    content.push(blockTable);
+    const tableBlock = WebImporter.DOMUtils.createTable(tableData, document);
+    parsedTables.push(tableBlock);
   });
-  
-  element.replaceWith(...content);
+
+  // Replace the element with tables only (no Section Metadata as example markdown did not require it)
+  element.replaceWith(...parsedTables);
 }

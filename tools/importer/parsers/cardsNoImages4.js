@@ -1,48 +1,44 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
-    const cardsData = [];
+export default function parse(element, { document }) {
+  // Helper to extract card content
+  const extractCardContent = (cardElement) => {
+    const titleElement = cardElement.querySelector('[data-ref="heading"]');
+    const descriptionElement = cardElement.querySelector('[data-testid="CardContent"] p');
+    const ctaElement = cardElement.querySelector('[data-testid="PrimaryButton"]');
 
-    // Extract heading and description from each card
-    const cardElements = element.querySelectorAll('[data-component="CardsGrid"] section[data-component="CardLinkList"] ul li');
-    cardElements.forEach((card) => {
-        const linkElement = card.querySelector('a');
-        const cardContent = [];
+    const content = [];
 
-        // Heading
-        if (linkElement) {
-            const heading = linkElement.textContent.trim();
-            cardContent.push(heading);
-        }
-
-        // Push the card content
-        cardsData.push(cardContent);
-    });
-
-    // Extract additional content like 'Find out more about ReachOut' and 'Was this information helpful?'
-    const additionalContent = [];
-
-    const reachOutLink = element.querySelector('[href="https://reachout.co.uk/"]');
-    if (reachOutLink) {
-        additionalContent.push(`Find out more about ReachOut: ${reachOutLink.href}`);
+    if (titleElement) {
+      const titleStrong = document.createElement('strong');
+      titleStrong.textContent = titleElement.textContent;
+      content.push(titleStrong);
     }
 
-    const feedbackSection = element.querySelector('[data-component="FeedbackTool"] h2');
-    if (feedbackSection) {
-        additionalContent.push(feedbackSection.textContent.trim());
+    if (descriptionElement) {
+      const descriptionParagraph = document.createElement('p');
+      descriptionParagraph.textContent = descriptionElement.textContent;
+      content.push(descriptionParagraph);
     }
 
-    // Include additional content in the cardsData
-    additionalContent.forEach(content => cardsData.push([content]));
+    if (ctaElement) {
+      const link = document.createElement('a');
+      link.href = ctaElement.href;
+      link.textContent = ctaElement.textContent;
+      content.push(link);
+    }
 
-    // Create the header row of the table
-    const tableHeader = ['Cards (no images)'];
+    return content;
+  };
 
-    // Combine header and card rows
-    const tableData = [tableHeader, ...cardsData];
+  // Extract all card elements
+  const cardElements = element.querySelectorAll('[data-component="CardCTAButton"]');
 
-    // Create the table
-    const cardsTable = WebImporter.DOMUtils.createTable(tableData, document);
+  const cardsTable = [
+    ['Cards (no images)'], // Header row matches example
+    ...Array.from(cardElements).map((cardElement) => [extractCardContent(cardElement)])
+  ];
 
-    // Replace the original element with the new block table
-    element.replaceWith(cardsTable);
+  const block = WebImporter.DOMUtils.createTable(cardsTable, document);
+
+  element.replaceWith(block);
 }

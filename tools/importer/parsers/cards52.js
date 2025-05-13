@@ -1,59 +1,51 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    const rows = [];
+  const rows = [];
 
-    // Add the block name as the header row
-    rows.push(['Cards']);
+  // Add the header row
+  rows.push(['Cards']);
 
-    // Iterate over the cards and extract content
-    const cards = element.querySelectorAll('[data-component="CardCTATextLinks"]');
+  // Process each card in the element
+  const cards = element.querySelectorAll('[data-component="CardCTATextLinks"]');
 
-    cards.forEach((card) => {
-        const cells = [];
+  cards.forEach((card) => {
+    const imageContainer = card.querySelector('[data-testid="ImageContainer"]');
+    const heading = card.querySelector('[data-ref="heading"]');
+    const contentParagraphs = card.querySelectorAll('[data-testid="CardContent"] p');
+    const link = card.querySelector('a[data-ref="link"]');
 
-        // Extract the image if it exists
-        const imageContainer = card.querySelector('[data-testid="ImageContainer"]');
-        if (imageContainer && imageContainer.style.backgroundImage) {
-            const image = document.createElement('img');
-            image.src = imageContainer.style.backgroundImage.replace(/url\("(.+)"\)/, '$1');
-            cells.push(image);
-        } // Omit the image cell entirely if no image is found
+    // Handle missing images
+    const image = imageContainer ? imageContainer.cloneNode(true) : document.createElement('div');
+    const title = heading ? heading.textContent.trim() : '';
+    const date = contentParagraphs[0] ? contentParagraphs[0].textContent.trim() : '';
+    const description = contentParagraphs[1] ? contentParagraphs[1].textContent.trim() : '';
+    const cta = link ? link.cloneNode(true) : '';
 
-        // Extract the content
-        const contentCell = document.createElement('div');
+    // Combine content into a single column
+    const content = [];
+    if (title) {
+      const titleElement = document.createElement('h2');
+      titleElement.textContent = title;
+      content.push(titleElement);
+    }
+    if (date) {
+      const dateElement = document.createElement('p');
+      dateElement.textContent = date;
+      content.push(dateElement);
+    }
+    if (description) {
+      const descriptionElement = document.createElement('p');
+      descriptionElement.textContent = description;
+      content.push(descriptionElement);
+    }
+    if (cta) {
+      content.push(cta);
+    }
 
-        // Extract the title
-        const title = card.querySelector('[data-ref="heading"]');
-        if (title) {
-            const titleElement = document.createElement('strong');
-            titleElement.textContent = title.textContent;
-            contentCell.appendChild(titleElement);
-        }
+    rows.push([image, content]);
+  });
 
-        // Extract the description
-        const description = card.querySelector('p');
-        if (description && description.textContent.trim()) {
-            const descriptionElement = document.createElement('p');
-            descriptionElement.textContent = description.textContent.trim();
-            contentCell.appendChild(descriptionElement);
-        }
-
-        // Extract the link and call-to-action
-        const link = card.querySelector('a[data-ref="link"]');
-        if (link) {
-            const linkElement = document.createElement('a');
-            linkElement.href = link.href;
-            linkElement.textContent = link.textContent;
-            contentCell.appendChild(linkElement);
-        }
-
-        cells.push(contentCell);
-        rows.push(cells);
-    });
-
-    // Create the table
-    const table = WebImporter.DOMUtils.createTable(rows, document);
-
-    // Replace the element with the table
-    element.replaceWith(table);
+  // Ensure section metadata is not added if not required in the example
+  const table = WebImporter.DOMUtils.createTable(rows, document);
+  element.replaceWith(table);
 }

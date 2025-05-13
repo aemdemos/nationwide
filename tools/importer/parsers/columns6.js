@@ -1,36 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const hr = document.createElement('hr');
+  const cells = [];
 
-  const headerRow = ['Columns'];
-  
-  // Extract content dynamically
-  const columnContentOne = document.createElement('div');
-  columnContentOne.textContent = 'One\nTwo\nThree';
+  // Add header row for the block
+  cells.push(['Columns']);
 
-  const liveLink = document.createElement('a');
-  liveLink.href = 'https://word-edit.officeapps.live.com/';
-  liveLink.textContent = 'Live';
+  // Identify columns within the element
+  const columns = element.querySelectorAll('[data-ref="gridColumn"]');
+  const columnCells = [];
+  columns.forEach((column) => {
+    const columnContent = [];
 
-  const firstImage = document.createElement('img');
-  firstImage.src = 'https://main--sta-boilerplate--aemdemos.hlx.page/media_193050d52a802830d970fde49644ae9a504a61b7f.png';
-  firstImage.alt = 'Green Double Helix';
+    // Extract heading if exists
+    const heading = column.querySelector('h2, h3, h4');
+    if (heading) {
+      columnContent.push(heading.textContent.trim());
+    }
 
-  const previewLink = document.createElement('a');
-  previewLink.href = 'https://word-edit.officeapps.live.com';
-  previewLink.textContent = 'Preview';
+    // Extract rich text content
+    const richText = column.querySelectorAll('.RichText__StyledRichTextContent-sc-1j7koit-0');
+    richText.forEach((richContent) => {
+      columnContent.push(richContent.cloneNode(true));
+    });
 
-  const secondImage = document.createElement('img');
-  secondImage.src = 'https://main--sta-boilerplate--aemdemos.hlx.page/media_1e562f39bbce4d269e279cbbf8c5674a399fe0070.png';
-  secondImage.alt = 'Yellow Double Helix';
+    // Extract buttons and links
+    const links = column.querySelectorAll('a[data-ref="link"], a[data-ref="linkContent"]');
+    links.forEach((link) => {
+      const anchor = document.createElement('a');
+      anchor.href = link.href;
+      anchor.textContent = link.textContent.trim();
+      columnContent.push(anchor);
+    });
 
-  const cells = [
-    headerRow,
-    [columnContentOne, liveLink, firstImage],
-    [secondImage, previewLink]
-  ];
+    columnCells.push(columnContent);
+  });
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Push the column content into the table cells
+  cells.push(columnCells);
 
-  element.replaceWith(hr, table);
+  // Create the block table
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the block table
+  element.replaceWith(block);
 }

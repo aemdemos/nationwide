@@ -1,23 +1,25 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Create the header row for the block
-  const headerRow = ['Tabs'];
+    // Create an <hr> element for a section break
+    const hr = document.createElement('hr');
 
-  // Extract tab label and content dynamically from the buttons within the element
-  const tabRows = Array.from(element.querySelectorAll('button')).map((button) => {
-    const tabLabel = button.querySelector('span:nth-child(2)')?.textContent?.trim() || '';
-    const tabContent = button.textContent?.trim() || '';
+    // Extract tab labels and content dynamically
+    const tabsData = [];
+    const buttons = element.querySelectorAll('button');
+    
+    buttons.forEach((button) => {
+        const label = button.querySelector('span:last-child')?.textContent?.trim() || 'Unknown Tab';
+        const contentContainer = document.createElement('div');
+        contentContainer.textContent = label; // Placeholder for actual content since it's unavailable
 
-    // Place the tab label and content into separate cells within the row
-    return [tabLabel, tabContent];
-  });
+        tabsData.push([label, contentContainer]);
+    });
 
-  // Combine header row and tab rows into table data
-  const tableData = [headerRow, ...tabRows];
+    // Create the block table with header and dynamically extracted rows
+    const headerRow = ['Tabs']; // Match the example header exactly
+    const tableRows = [headerRow, ...tabsData];
+    const blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
 
-  // Create the table using WebImporter.DOMUtils
-  const table = WebImporter.DOMUtils.createTable(tableData, document);
-
-  // Replace the element with the constructed table
-  element.replaceWith(table);
+    // Replace the original element with the new structure
+    element.replaceWith(hr, blockTable);
 }

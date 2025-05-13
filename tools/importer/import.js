@@ -13,47 +13,44 @@
 /* eslint-disable no-console */
 import cardsNoImages4Parser from './parsers/cardsNoImages4.js';
 import accordion8Parser from './parsers/accordion8.js';
-import accordion13Parser from './parsers/accordion13.js';
-import columns5Parser from './parsers/columns5.js';
 import embedVideo16Parser from './parsers/embedVideo16.js';
-import columns12Parser from './parsers/columns12.js';
 import accordion15Parser from './parsers/accordion15.js';
-import cards20Parser from './parsers/cards20.js';
-import accordion22Parser from './parsers/accordion22.js';
-import hero23Parser from './parsers/hero23.js';
-import accordion24Parser from './parsers/accordion24.js';
 import columns11Parser from './parsers/columns11.js';
-import columns30Parser from './parsers/columns30.js';
-import cardsNoImages25Parser from './parsers/cardsNoImages25.js';
-import tableNoHeader31Parser from './parsers/tableNoHeader31.js';
 import tableStripedBordered17Parser from './parsers/tableStripedBordered17.js';
-import hero34Parser from './parsers/hero34.js';
-import cards36Parser from './parsers/cards36.js';
-import embedSocial37Parser from './parsers/embedSocial37.js';
-import tabs38Parser from './parsers/tabs38.js';
-import cards10Parser from './parsers/cards10.js';
-import accordion39Parser from './parsers/accordion39.js';
 import tableStripedBordered18Parser from './parsers/tableStripedBordered18.js';
-import embedVideo43Parser from './parsers/embedVideo43.js';
-import tableStripedBordered41Parser from './parsers/tableStripedBordered41.js';
+import hero23Parser from './parsers/hero23.js';
 import embedVideo2Parser from './parsers/embedVideo2.js';
-import search44Parser from './parsers/search44.js';
-import accordion48Parser from './parsers/accordion48.js';
-import search45Parser from './parsers/search45.js';
-import hero42Parser from './parsers/hero42.js';
-import columns6Parser from './parsers/columns6.js';
+import cardsNoImages25Parser from './parsers/cardsNoImages25.js';
 import tableStripedBordered26Parser from './parsers/tableStripedBordered26.js';
-import cards52Parser from './parsers/cards52.js';
+import cards10Parser from './parsers/cards10.js';
+import accordion24Parser from './parsers/accordion24.js';
+import cards36Parser from './parsers/cards36.js';
+import tabs38Parser from './parsers/tabs38.js';
+import accordion39Parser from './parsers/accordion39.js';
+import columns12Parser from './parsers/columns12.js';
+import embedSocial37Parser from './parsers/embedSocial37.js';
+import tableStripedBordered40Parser from './parsers/tableStripedBordered40.js';
+import tableNoHeader31Parser from './parsers/tableNoHeader31.js';
+import columns30Parser from './parsers/columns30.js';
+import embedVideo43Parser from './parsers/embedVideo43.js';
+import hero42Parser from './parsers/hero42.js';
+import search44Parser from './parsers/search44.js';
+import tableStripedBordered47Parser from './parsers/tableStripedBordered47.js';
+import search45Parser from './parsers/search45.js';
+import accordion22Parser from './parsers/accordion22.js';
+import accordion48Parser from './parsers/accordion48.js';
 import video50Parser from './parsers/video50.js';
+import columns49Parser from './parsers/columns49.js';
+import tableStripedBordered54Parser from './parsers/tableStripedBordered54.js';
+import cards52Parser from './parsers/cards52.js';
+import accordion13Parser from './parsers/accordion13.js';
+import columns51Parser from './parsers/columns51.js';
 import columns55Parser from './parsers/columns55.js';
 import hero46Parser from './parsers/hero46.js';
-import columns51Parser from './parsers/columns51.js';
-import cards21Parser from './parsers/cards21.js';
-import tableStripedBordered40Parser from './parsers/tableStripedBordered40.js';
-import tableStripedBordered54Parser from './parsers/tableStripedBordered54.js';
-import tableStripedBordered47Parser from './parsers/tableStripedBordered47.js';
+import columns6Parser from './parsers/columns6.js';
 import columns1Parser from './parsers/columns1.js';
-import columns49Parser from './parsers/columns49.js';
+import tableStripedBordered41Parser from './parsers/tableStripedBordered41.js';
+import columns5Parser from './parsers/columns5.js';
 import headerParser from './parsers/header.js';
 import metadataParser from './parsers/metadata.js';
 import cleanupTransformer from './transformers/cleanup.js';
@@ -63,53 +60,51 @@ import { TransformHook } from './transformers/transform.js';
 import {
   generateDocumentPath,
   handleOnLoad,
+  TableBuilder,
 } from './import.utils.js';
 
 const parsers = {
   metadata: metadataParser,
   cardsNoImages4: cardsNoImages4Parser,
   accordion8: accordion8Parser,
-  accordion13: accordion13Parser,
-  columns5: columns5Parser,
   embedVideo16: embedVideo16Parser,
-  columns12: columns12Parser,
   accordion15: accordion15Parser,
-  cards20: cards20Parser,
-  accordion22: accordion22Parser,
-  hero23: hero23Parser,
-  accordion24: accordion24Parser,
   columns11: columns11Parser,
-  columns30: columns30Parser,
-  cardsNoImages25: cardsNoImages25Parser,
-  tableNoHeader31: tableNoHeader31Parser,
   tableStripedBordered17: tableStripedBordered17Parser,
-  hero34: hero34Parser,
-  cards36: cards36Parser,
-  embedSocial37: embedSocial37Parser,
-  tabs38: tabs38Parser,
-  cards10: cards10Parser,
-  accordion39: accordion39Parser,
   tableStripedBordered18: tableStripedBordered18Parser,
-  embedVideo43: embedVideo43Parser,
-  tableStripedBordered41: tableStripedBordered41Parser,
+  hero23: hero23Parser,
   embedVideo2: embedVideo2Parser,
-  search44: search44Parser,
-  accordion48: accordion48Parser,
-  search45: search45Parser,
-  hero42: hero42Parser,
-  columns6: columns6Parser,
+  cardsNoImages25: cardsNoImages25Parser,
   tableStripedBordered26: tableStripedBordered26Parser,
-  cards52: cards52Parser,
+  cards10: cards10Parser,
+  accordion24: accordion24Parser,
+  cards36: cards36Parser,
+  tabs38: tabs38Parser,
+  accordion39: accordion39Parser,
+  columns12: columns12Parser,
+  embedSocial37: embedSocial37Parser,
+  tableStripedBordered40: tableStripedBordered40Parser,
+  tableNoHeader31: tableNoHeader31Parser,
+  columns30: columns30Parser,
+  embedVideo43: embedVideo43Parser,
+  hero42: hero42Parser,
+  search44: search44Parser,
+  tableStripedBordered47: tableStripedBordered47Parser,
+  search45: search45Parser,
+  accordion22: accordion22Parser,
+  accordion48: accordion48Parser,
   video50: video50Parser,
+  columns49: columns49Parser,
+  tableStripedBordered54: tableStripedBordered54Parser,
+  cards52: cards52Parser,
+  accordion13: accordion13Parser,
+  columns51: columns51Parser,
   columns55: columns55Parser,
   hero46: hero46Parser,
-  columns51: columns51Parser,
-  cards21: cards21Parser,
-  tableStripedBordered40: tableStripedBordered40Parser,
-  tableStripedBordered54: tableStripedBordered54Parser,
-  tableStripedBordered47: tableStripedBordered47Parser,
+  columns6: columns6Parser,
   columns1: columns1Parser,
-  columns49: columns49Parser,
+  tableStripedBordered41: tableStripedBordered41Parser,
+  columns5: columns5Parser,
 };
 
 const transformers = {
@@ -197,8 +192,11 @@ function transformPage(main, { inventory, ...source }) {
     try {
       // before parse hook
       WebImporter.Import.transform(TransformHook.beforeParse, element, { ...source });
+      const tableBuilder = TableBuilder(WebImporter.DOMUtils.createTable);
+      WebImporter.DOMUtils.createTable = tableBuilder.build(parserName);
       // parse the element
       parserFn.call(this, element, { ...source });
+      WebImporter.DOMUtils.createTable = tableBuilder.restore();
       // after parse hook
       WebImporter.Import.transform(TransformHook.afterParse, element, { ...source });
     } catch (e) {

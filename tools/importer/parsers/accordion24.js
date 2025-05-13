@@ -1,25 +1,24 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+  const rows = [];
 
-  // Create the header row with exact structure from the example
-  const headerRow = [document.createElement('strong')];
-  headerRow[0].textContent = 'Accordion';
-  cells.push(headerRow);
+  // Add the header row for the Accordion block
+  rows.push(['Accordion']);
 
-  // Iterate through the list items and extract content
+  // Process each list item in the provided HTML
   const listItems = element.querySelectorAll('li');
-  listItems.forEach((listItem) => {
-    const title = listItem.querySelector('p');
-    if (title) {
-      const titleText = title.textContent.trim();
-      cells.push([titleText, '']); // Accordion blocks usually have empty content cells
+  listItems.forEach((item) => {
+    const title = item.querySelector('svg');
+    const content = item.querySelector('div.Content-sc-mh9bui-0');
+
+    if (title && content) {
+      rows.push([title.outerHTML, content.textContent.trim()]);
     }
   });
 
-  // Create the table using the helper function
-  const table = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the table block
+  const block = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element with the new table
-  element.replaceWith(table);
+  // Replace the original element with the new block table
+  element.replaceWith(block);
 }

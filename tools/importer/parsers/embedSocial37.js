@@ -1,33 +1,24 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract all buttons within the element
-  const buttons = Array.from(element.querySelectorAll('a'));
-
-  // Validate that buttons contain data
-  if (buttons.length === 0) {
-    console.warn('No buttons found in the element.');
-    return;
-  }
-
-  // Create table header row exactly as per the example
-  const headerRow = ['Embed'];
-
-  // Create content rows for each button separately
-  const contentRows = buttons.map(button => {
-    const link = document.createElement('a');
-    link.href = button.href;
-    link.textContent = button.querySelector('span')?.textContent || button.textContent;
-    return [link];
+  // Extract dynamic content from links
+  const links = Array.from(element.querySelectorAll('a')).map(link => {
+    const href = link.getAttribute('href');
+    const anchor = document.createElement('a');
+    anchor.setAttribute('href', href);
+    anchor.textContent = href;
+    return anchor;
   });
 
-  const tableData = [
+  // Accurate table structure for Embed block
+  const headerRow = ['Embed'];
+  const cells = [
     headerRow,
-    ...contentRows // Spread content rows to ensure each button is in its own row
+    [links],
   ];
 
-  // Create the structured table using WebImporter utility
-  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+  // Create table
+  const table = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the newly created block table
-  element.replaceWith(blockTable);
+  // Replace original element with the new table
+  element.replaceWith(table);
 }

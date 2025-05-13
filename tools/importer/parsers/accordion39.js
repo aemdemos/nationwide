@@ -1,47 +1,40 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+    const hr = document.createElement('hr');
 
-  // Header row
-  const headerRow = ['Accordion'];
-  cells.push(headerRow);
+    const accordions = Array.from(element.querySelectorAll('[data-component="AccordionSimple"]'));
 
-  // Extract accordion items
-  const accordionItems = element.querySelectorAll('[data-ref="accordion"]');
-  accordionItems.forEach((item) => {
-    const titleElement = item.querySelector('[data-ref="accordionHeading"]');
-    const contentElement = item.querySelector('[data-ref="accordionContent"]');
+    const sections = [];
 
-    const titleCell = titleElement ? titleElement.textContent.trim() : '';
+    accordions.forEach((accordion, index) => {
+        // Create Section Metadata Block if required
+        const sectionMetadata = [
+            ['Section Metadata'], // Header row exactly matching example
+            [`Section ${index + 1}`] // Dummy metadata for demonstration (can be extended dynamically)
+        ];
+        const sectionMetadataTable = WebImporter.DOMUtils.createTable(sectionMetadata, document);
 
-    const bodyContent = [];
-    if (contentElement) {
-      const paragraphs = contentElement.querySelectorAll('p');
-      paragraphs.forEach((paragraph) => {
-        const links = paragraph.querySelectorAll('a[href]');
-        if (links.length > 0) {
-          links.forEach((link) => {
-            const linkElement = document.createElement('a');
-            linkElement.href = link.href;
-            linkElement.textContent = link.textContent;
-            bodyContent.push(linkElement); // Push link elements
-          });
-        } else {
-          // Push paragraph text if no links are present
-          const paragraphText = paragraph.textContent.trim();
-          if (paragraphText) {
-            bodyContent.push(paragraphText);
-          }
-        }
-      });
-    }
+        // Create Accordion Block
+        const headerRow = ['Accordion'];
+        const rows = [headerRow];
 
-    cells.push([titleCell, bodyContent]);
-  });
+        const items = Array.from(accordion.querySelectorAll('[data-ref="accordion"]'));
+        items.forEach((item) => {
+            const titleElement = item.querySelector('button[data-ref="accordionHeader"] .nel-Accordion-503');
+            const contentElement = item.querySelector('[data-ref="accordionContent"]');
 
-  // Create the table block
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+            const title = titleElement?.textContent.trim() || 'Untitled'; // Handle missing titles
+            const content = contentElement ? Array.from(contentElement.childNodes) : ['No content available']; // Handle missing content
 
-  // Replace the original element with the block
-  element.replaceWith(block);
+            rows.push([title, content]);
+        });
+
+        const accordionTable = WebImporter.DOMUtils.createTable(rows, document);
+
+        // Add Section Break and Section Metadata
+        sections.push(hr.cloneNode(), sectionMetadataTable, accordionTable);
+    });
+
+    // Replace original element with all sections
+    element.replaceWith(...sections);
 }

@@ -1,24 +1,27 @@
 /* global WebImporter */
+
 export default function parse(element, { document }) {
-  // Process the table
-  const tableElement = element.querySelector('table');
-  const rows = [];
+  // Correcting the issue with unnecessary 'Section Metadata' block generation
+  const table = element.querySelector('table');
+  const headerRow = ['Table (striped, bordered)'];
 
-  // Add header row exactly matching the example
-  const headerRow = ['Date your tracker was reserved', 'Tracker floor', 'Impact of the base rate change on your tracker mortgage'];
-  rows.push(headerRow);
+  if (table) {
+    const rows = table.querySelectorAll('tbody tr'); // Extract rows dynamically from the provided content
 
-  // Add data rows dynamically extracting content from the original HTML
-  const dataRows = Array.from(tableElement.querySelectorAll('tbody tr')).map(tr => {
-    return Array.from(tr.querySelectorAll('td')).map(td => {
-      const link = td.querySelector('a');
-      return link ? link.href : td.textContent.trim();
+    const tableData = Array.from(rows).map((row) => {
+      const cells = row.querySelectorAll('td');
+      return Array.from(cells).map((cell) => {
+        return cell.textContent.trim(); // Ensure clean text extraction
+      });
     });
-  });
-  rows.push(...dataRows);
 
-  const tableBlock = WebImporter.DOMUtils.createTable(rows, document);
+    // Create the block table using the extracted data
+    const structuredTable = WebImporter.DOMUtils.createTable(
+      [headerRow, ...tableData],
+      document
+    );
 
-  // Replace element with the new table block only
-  element.replaceWith(tableBlock);
+    // Replace the element with the structured table
+    element.replaceWith(structuredTable);
+  }
 }

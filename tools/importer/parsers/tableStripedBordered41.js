@@ -1,34 +1,39 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Create the header row to match the example
-  const headerRow = ['Product Name', 'Website'];
+  const rows = element.querySelectorAll('tr');
+  const tableData = [];
 
-  const rows = [];
-  const table = element.querySelector('table');
-  const products = table.querySelectorAll('tbody tr');
+  // Extract header row from the first row
+  const headerRow = Array.from(rows[0].querySelectorAll('th')).map((th) => th.textContent.trim());
+  tableData.push(headerRow);
 
-  products.forEach((product) => {
-    const cols = product.querySelectorAll('td, th');
+  // Extract other rows dynamically
+  Array.from(rows).slice(1).forEach((row) => {
+    const rowData = Array.from(row.querySelectorAll('td')).map((td) => {
+      if (!td) return '';
 
-    // Extract the product name
-    const linkElement = cols[0].querySelector('a');
-    const titleElement = linkElement ? linkElement.querySelector('span') : null;
-    const title = titleElement ? titleElement.textContent.trim() : 'No Title';
+      const link = td.querySelector('a');
+      if (link) {
+        const anchorElement = document.createElement('a');
+        anchorElement.setAttribute('href', link.href);
+        anchorElement.textContent = link.textContent.trim();
+        return anchorElement;
+      }
 
-    // Extract the link element
-    let websiteCell = 'No Link';
-    if (linkElement && linkElement.href) {
-      const link = linkElement.href;
-      websiteCell = document.createElement('a');
-      websiteCell.href = link;
-      websiteCell.textContent = link;
-    }
+      const list = td.querySelector('ul');
+      if (list) {
+        return Array.from(list.querySelectorAll('li')).map((li) => li.textContent.trim());
+      }
 
-    rows.push([title, websiteCell]);
+      return td.textContent.trim();
+    });
+
+    tableData.push(rowData);
   });
 
-  const cells = [headerRow, ...rows];
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create structured table using WebImporter
+  const structuredTable = WebImporter.DOMUtils.createTable(tableData, document);
 
-  element.replaceWith(blockTable);
+  // Replace the original element with the structured table
+  element.replaceWith(structuredTable);
 }

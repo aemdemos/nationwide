@@ -1,31 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Verify if the element contains necessary content
-  if (!element) return;
+  // Helper function to extract links from list items
+  const extractLinks = (list) => {
+    return [...list.querySelectorAll('li')].map((li) => {
+      const link = li.querySelector('a');
+      const linkContent = link.querySelector('span');
+      return [linkContent.textContent.trim(), link.href];
+    });
+  };
 
-  // Correctly set the header row as per example
-  const headerRow = ['Accordion'];
+  const accordionHeader = ['Accordion'];
 
-  // Extract all h2 headings and their corresponding content
-  const titleElements = element.querySelectorAll('h2');
-  const contentElements = element.querySelectorAll('[data-component="RichText"], ul');
+  const sectionContent = [];
 
-  const rows = [];
-  Array.from(titleElements).forEach((title, index) => {
-    const titleText = title.textContent.trim();
-    const content = contentElements[index]?.cloneNode(true);
+  // Optional informational block handling
+  const messageBlock = element.querySelector('[data-testid="MessagingFramework"]');
+  if (messageBlock) {
+    const messageHeader = messageBlock.querySelector('[data-ref="messageHeader"]').textContent.trim();
+    const messageContent = messageBlock.querySelector('[data-ref="messageContent"] p').cloneNode(true);
+    sectionContent.push([messageHeader, messageContent]);
+  }
 
-    // Handle edge cases: skip rows where content is missing
-    if (titleText && content) {
-      rows.push([titleText, content]);
-    }
-  });
+  // Extract "What's on this page" links
+  const heading = element.querySelector('[data-ref="heading"]');
+  const navSection = element.querySelector('[data-ref="list"]');
 
-  // Build the table structure
-  const cells = [headerRow, ...rows];
+  if (heading && navSection) {
+    const links = extractLinks(navSection);
+    links.forEach(([title, href]) => {
+      const linkElement = document.createElement('a');
+      linkElement.href = href;
+      linkElement.textContent = href;
+      sectionContent.push([title, linkElement]);
+    });
+  }
 
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Prepare the table structure
+  const cells = [accordionHeader, ...sectionContent];
 
-  // Replace the original element with the new block table
-  element.replaceWith(blockTable);
+  // Create the table block
+  const block = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the block
+  element.replaceWith(block);
 }

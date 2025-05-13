@@ -1,33 +1,31 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+  // Helper function to create a cell with text or elements
+  const createCellContent = (content) => {
+    if (!content) return '';
+    const wrapper = document.createElement('div');
+    wrapper.innerHTML = content;
+    return Array.from(wrapper.childNodes);
+  };
 
-  // Header row
-  cells.push(['Columns']);
+  // Extract content from the given HTML element
+  const items = [...element.querySelectorAll('li')].map((li) => {
+    // Extract heading
+    const heading = li.querySelector('h3');
+    const headingContent = heading ? heading.textContent : '';
 
-  // Extract content from each list item
-  const items = element.querySelectorAll('li');
-  const columns = Array.from(items).map((item) => {
-    const title = item.querySelector('h3')?.textContent.trim() || '';
-    const paragraph = item.querySelector('p')?.textContent.trim() || '';
+    // Extract text content
+    const textContainer = li.querySelector('.vertical-rhythm--richText');
+    const textContent = textContainer ? Array.from(textContainer.childNodes).filter(node => node.nodeType === 1 || node.nodeType === 3) : '';
 
-    const link = item.querySelector('a');
-    let combinedContent = `${paragraph}`;
-    if (link) {
-      const linkElement = document.createElement('a');
-      linkElement.href = link.href;
-      linkElement.textContent = link.textContent.trim();
-      combinedContent += ` ${linkElement.outerHTML}`;
-    }
-
-    return [`${title} ${combinedContent}`];
+    return [createCellContent(headingContent), textContent];
   });
 
-  cells.push(...columns);
+  // Create the block table
+  const headerRow = ['Columns'];
+  const blockContent = [[headerRow], ...items];
+  const block = WebImporter.DOMUtils.createTable(blockContent, document);
 
-  // Create the table
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-
-  // Replace the original element with the table
-  element.replaceWith(table);
+  // Replace the original element with the new block table
+  element.replaceWith(block);
 }

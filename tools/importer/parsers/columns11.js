@@ -1,52 +1,62 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Create an hr element for section break
-  const hr = document.createElement('hr');
+  // Helper function to extract content from li elements and combine into a single cell
+  const extractContent = (liElement) => {
+    const heading = liElement.querySelector('h3, h2');
+    const headingText = heading ? heading.textContent.trim() : '';
 
-  // Extract rows from the element
-  const rows = Array.from(element.querySelectorAll('li')).map(li => {
-    const heading = li.querySelector('h3')?.textContent.trim() || '';
+    const paragraph = liElement.querySelector('p');
+    const paragraphContent = paragraph ? paragraph.innerHTML.trim() : '';
 
-    const paragraphs = Array.from(li.querySelectorAll('p')).map(p => {
-      const paragraph = document.createElement('p');
-      paragraph.textContent = p.textContent.trim();
-      return paragraph;
-    });
-
-    const links = Array.from(li.querySelectorAll('a')).map(a => {
-      const link = document.createElement('a');
-      link.href = a.href;
-      link.textContent = a.textContent.trim();
-      return link;
-    });
-
-    const image = li.querySelector('img');
-    const imgElement = document.createElement('img');
-    if (image) {
-      imgElement.src = image.src;
-      imgElement.alt = image.alt || '';
+    const link = liElement.querySelector('a');
+    const linkElement = link ? document.createElement('a') : null;
+    if (linkElement) {
+      linkElement.href = link.href;
+      linkElement.textContent = link.textContent;
     }
 
-    // Create a structured row with individual cells for heading, paragraphs, links, and image
-    const row = [
-      [heading],
-      paragraphs.length ? paragraphs : '',
-      links.length ? links : '',
-      [imgElement]
-    ];
+    const image = liElement.querySelector('img');
+    const imageElement = image ? document.createElement('img') : null;
+    if (imageElement) {
+      imageElement.src = image.src;
+      imageElement.alt = image.alt;
+    }
 
-    return row;
-  });
+    // Combine all extracted content into a single cell
+    const contentCell = document.createElement('div');
+    if (headingText) {
+      const headingElement = document.createElement('strong');
+      headingElement.textContent = headingText;
+      contentCell.appendChild(headingElement);
+    }
+    if (paragraphContent) {
+      const paragraphElement = document.createElement('p');
+      paragraphElement.innerHTML = paragraphContent;
+      contentCell.appendChild(paragraphElement);
+    }
+    if (linkElement) {
+      contentCell.appendChild(linkElement);
+    }
+    if (imageElement) {
+      contentCell.appendChild(imageElement);
+    }
 
-  // Header row for the block
-  const headerRow = ['Columns'];
+    return [contentCell];
+  };
 
-  // Combine header and rows into table data
-  const tableData = [headerRow, ...rows];
+  // Extract all list items
+  const listItems = [...element.querySelectorAll('li')];
+  const contentRows = listItems.map(extractContent);
 
-  // Create table using WebImporter.DOMUtils.createTable
-  const table = WebImporter.DOMUtils.createTable(tableData, document);
+  // Define block structure with correct header row and content rows
+  const cells = [
+    ['Columns'], // Correctly formatted header row with a single column
+    ...contentRows
+  ];
 
-  // Replace the original element with section break and the new table
-  element.replaceWith(hr, table);
+  // Create table using WebImporter.DOMUtils
+  const table = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace element with structured block
+  element.replaceWith(table);
 }

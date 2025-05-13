@@ -1,61 +1,61 @@
 /* global WebImporter */
+
 export default function parse(element, { document }) {
-  const rows = [];
+  const hr = document.createElement('hr');
+  const cells = [];
 
-  // Get all cards inside the CardsGrid
-  const cards = Array.from(element.querySelectorAll('[data-component="CardContactSimple"], [data-component="CardWaysToApply"], [data-component="CardCTAButton"], [data-component="CardCTATextLinks"]'));
+  // Add block header row
+  const headerRow = ['Cards'];
+  cells.push(headerRow);
 
+  // Process each card within the element
+  const cards = element.querySelectorAll('[data-component="CardContactSimple"]');
   cards.forEach((card) => {
-    const icon = card.querySelector('.IconWithContent__StyledIcon-sc-mcdv6-1 svg');
+    const icon = card.querySelector('svg') ? card.querySelector('svg').cloneNode(true) : document.createElement('div');
     const heading = card.querySelector('[data-ref="heading"]');
     const content = card.querySelector('[data-testid="CardContent"]');
     const availability = card.querySelector('[data-testid="CardAvailability"]');
-    const link = card.querySelector('a[data-ref="link"]');
+    const actionText = card.querySelector('[data-testid="CardActionText"]');
+    const links = card.querySelectorAll('a');
 
-    const row = [];
+    const contentElements = [];
 
-    // Ensure consistency in handling icons
-    if (icon) {
-      row.push(icon.cloneNode(true));
-    } else {
-      const placeholderIcon = document.createElement('span');
-      placeholderIcon.textContent = "No icon available";
-      row.push(placeholderIcon);
-    }
-
-    const textContent = [];
-
-    // Add heading as plain text
+    // Add heading
     if (heading) {
-      textContent.push(document.createTextNode(heading.textContent));
+      const headingElement = document.createElement('h3');
+      headingElement.textContent = heading.textContent;
+      contentElements.push(headingElement);
     }
 
     // Add content
     if (content) {
-      textContent.push(document.createElement('br'));
-      textContent.push(content.cloneNode(true));
+      const contentElement = document.createElement('p');
+      contentElement.textContent = content.textContent;
+      contentElements.push(contentElement);
     }
 
     // Add availability
     if (availability) {
-      textContent.push(document.createElement('br'));
-      textContent.push(availability.cloneNode(true));
+      const availabilityElement = document.createElement('p');
+      availabilityElement.textContent = availability.textContent;
+      contentElements.push(availabilityElement);
     }
 
-    // Add link
-    if (link) {
-      textContent.push(document.createElement('br'));
-      textContent.push(link.cloneNode(true));
-    }
+    // Include links in relevant content structure
+    links.forEach((link) => {
+      const linkElement = document.createElement('a');
+      linkElement.href = link.href;
+      linkElement.textContent = link.textContent;
+      contentElements.push(linkElement);
+    });
 
-    row.push(textContent);
-    rows.push(row);
+    // Add row to cells
+    cells.push([icon, contentElements]);
   });
 
-  const headerRow = ['Cards'];
-  const tableData = [headerRow, ...rows];
-  const table = WebImporter.DOMUtils.createTable(tableData, document);
+  // Create block table
+  const table = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace element directly without adding unnecessary '<hr>'
-  element.replaceWith(table);
+  // Replace element with table
+  element.replaceWith(hr, table);
 }

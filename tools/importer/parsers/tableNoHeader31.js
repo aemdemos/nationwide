@@ -1,39 +1,32 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
+  // Extract list items from the provided HTML structure
+  const listItems = [...element.querySelectorAll('li')];
 
-  // Set the correct header row
-  cells.push(['Table (no header)']);
+  // Collect the content for each list item
+  const rows = listItems.map((item) => {
+    const primaryLink = item.querySelector('a.ScLink__ThemedLink-sc-1g231v1-0');
+    const titleElement = primaryLink.querySelector('span > div'); // Target title div explicitly
+    const smallElement = primaryLink.querySelector('small');
 
-  // Extract list items from the ul element
-  const listItems = element.querySelectorAll('li');
+    const link = document.createElement('a');
+    link.href = primaryLink.href;
+    link.textContent = titleElement ? titleElement.textContent.trim() : 'Missing title';
 
-  listItems.forEach((item) => {
-    const link = item.querySelector('a[data-ref="link"]');
-    const title = item.querySelector('span[data-ref="linkContent"] span')?.textContent;
-    const smallText = item.querySelector('small[data-ref="text"]')?.textContent;
+    const additionalInfo = smallElement ? smallElement.textContent.trim() : 'Missing additional info';
 
-    if (link) {
-      const href = link.getAttribute('href');
-      const cellContent = [];
-
-      if (title) {
-        cellContent.push(title);
-      }
-
-      if (smallText) {
-        cellContent.push(smallText);
-      }
-
-      const linkElement = document.createElement('a');
-      linkElement.href = href;
-      linkElement.textContent = href;
-      cellContent.push(linkElement);
-
-      cells.push([cellContent]);
-    }
+    return [link, additionalInfo];
   });
 
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-  element.replaceWith(table);
+  // Create the table structure
+  const tableData = [
+    ['Table (no header)'], // Header row
+    ...rows
+  ];
+
+  // Create the block table
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Replace the original element with the new block table
+  element.replaceWith(blockTable);
 }

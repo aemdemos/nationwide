@@ -1,46 +1,41 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+    // Corrected Code to Address Issues
 
-  // Add the header row
-  const headerRow = ['Cards (no images)'];
-  rows.push(headerRow);
+    // Create the header row
+    const headerRow = ['Cards (no images)'];
 
-  // Iterate through all sections in the element
-  const sections = element.querySelectorAll('section[data-component="CardLinkList"]');
-  sections.forEach((section) => {
-    const cellContent = [];
+    // Cells array to store content rows
+    const cells = [headerRow];
 
-    // Extract heading if available
-    const heading = section.querySelector('[data-ref="heading"]');
-    if (heading) {
-      const headingEl = document.createElement('p');
-      headingEl.textContent = heading.textContent.trim();
-      headingEl.style.fontWeight = 'bold';
-      cellContent.push(headingEl);
-    }
+    // Extract list items
+    const listItems = element.querySelectorAll('ul li');
 
-    // Extract description if available (links)
-    const listItems = section.querySelectorAll('[data-ref="link"]');
     listItems.forEach((item) => {
-      const linkEl = document.createElement('a');
-      linkEl.href = item.href;
-      linkEl.textContent = item.textContent.trim();
-      cellContent.push(linkEl);
+        const link = item.querySelector('a');
+        const linkText = link ? link.textContent.trim() : '';
+        const linkHref = link ? link.href.trim() : '';
+
+        // Create content for the row (exclude repeated heading)
+        const content = [];
+
+        // Add linked text if available
+        if (linkText && linkHref) {
+            const linkElement = document.createElement('a');
+            linkElement.href = linkHref;
+            linkElement.textContent = linkText;
+            content.push(linkElement);
+        } else if (linkText) {
+            content.push(linkText);
+        }
+
+        // Push the content as a single row
+        cells.push([content]);
     });
 
-    // Push content as a single cell row
-    rows.push([cellContent]);
-  });
+    // Create the table block
+    const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Create the block table
-  const table = WebImporter.DOMUtils.createTable(rows, document);
-
-  // Handle section breaks if necessary
-  if (element.previousElementSibling && element.previousElementSibling.tagName === 'HR') {
-    const hr = document.createElement('hr');
-    element.replaceWith(hr, table);
-  } else {
-    element.replaceWith(table);
-  }
+    // Replace the original element with the table block
+    element.replaceWith(block);
 }

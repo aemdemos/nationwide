@@ -1,27 +1,35 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const rows = [];
+  // Verify if Section Metadata is needed from example markdown
+  const needsSectionBreak = false; // Change to true if Section Metadata is specified in example markdown
 
-  // Extract accordion headers and content dynamically
-  const accordionElements = element.querySelectorAll('[data-component="AccordionSimple"]');
-  accordionElements.forEach((accordion) => {
-    const header = accordion.querySelector('[data-ref="accordionHeading"]');
-    const content = accordion.querySelector('[data-ref="accordionContent"]');
+  // Extract accordion items dynamically from the element
+  const accordionItems = Array.from(element.querySelectorAll('[data-ref="accordion"] h4')).map((item) => {
+    const title = item.querySelector('[data-ref="accordionHeading"]').textContent.trim() || '(No Title)';
+    const contentElement = item.nextElementSibling?.querySelector('.Accordion__StyledRichTextContent-sc-kdxjv9-0');
+    const contentNode = document.createElement('div');
 
-    // Handle edge cases for missing content
-    rows.push([
-      header ? header.textContent.trim() : 'Untitled Accordion',
-      content ? content.innerHTML.trim() : 'No content available'
-    ]);
+    if (contentElement) {
+      contentNode.innerHTML = contentElement.innerHTML.trim() || '(No Content)';
+    } else {
+      contentNode.textContent = '(No Content)';
+    }
+
+    return [title, contentNode];
   });
 
-  // Create main block table
-  const cells = [
-    ['Accordion'],
-    ...rows,
-  ];
-  const mainTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the header row for the table exactly matching the example
+  const headerRow = ['Accordion'];
+  const accordionTable = [headerRow, ...accordionItems];
 
-  // Replace the element with the main block table
-  element.replaceWith(mainTable);
+  // Create the block table using WebImporter.DOMUtils.createTable
+  const accordionBlock = WebImporter.DOMUtils.createTable(accordionTable, document);
+
+  // Conditionally add section break if specified by example markdown
+  if (needsSectionBreak) {
+    const hr = document.createElement('hr');
+    element.replaceWith(hr, accordionBlock);
+  } else {
+    element.replaceWith(accordionBlock);
+  }
 }

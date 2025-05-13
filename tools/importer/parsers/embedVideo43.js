@@ -1,18 +1,43 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    const tableData = [];
+  // Check if the element contains necessary content
+  const heading = element.querySelector('h3')?.textContent?.trim();
+  if (!heading) {
+    console.warn('Heading missing in element.');
+    return;
+  }
 
-    // Extract the heading text
-    const headingElement = element.querySelector('[data-ref="heading"]');
-    const headingText = headingElement ? headingElement.textContent.trim() : '';
+  // Extract paragraphs
+  const paragraphs = Array.from(element.querySelectorAll('p')).map(p => p.textContent?.trim());
+  if (paragraphs.length === 0) {
+    console.warn('Paragraphs missing in element.');
+    return;
+  }
 
-    // Prepare the table data
-    tableData.push(['Embed']);
-    tableData.push([headingText]);
+  // Extract image
+  const image = element.querySelector('img');
+  let imageElement = null;
+  if (image) {
+    imageElement = document.createElement('img');
+    imageElement.src = image?.getAttribute('src');
+    if (!imageElement.src) {
+      console.warn('Image src missing.');
+      return;
+    }
+  }
 
-    // Create the block table
-    const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+  // Create table cells dynamically
+  const cells = [
+    ['Embed'],
+    [
+      imageElement ? imageElement : '',
+      paragraphs.join('<br>')
+    ]
+  ];
 
-    // Replace the original element with the block table
-    element.replaceWith(blockTable);
+  // Create block table
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the new block
+  element.replaceWith(blockTable);
 }

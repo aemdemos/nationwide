@@ -1,56 +1,45 @@
 /* global WebImporter */
-export default function parse(element, { document }) {
+ export default function parse(element, { document }) {
   const headerRow = ['Columns'];
 
-  // Extract content dynamically from the element
-  const columns = Array.from(element.querySelectorAll('[data-ref="gridColumn"]'));
+  const contentCells = [];
 
-  if (columns.length < 2) {
-    console.warn('Expected two columns, but found less.');
-    return;
-  }
+  const columns = [...element.querySelectorAll('[data-ref="gridColumn"]')];
 
-  const firstColumnContent = [];
-  const secondColumnContent = [];
+  columns.forEach((col) => {
+    const colContent = [];
 
-  // Process first column
-  const firstColumn = columns[0];
-  const firstHeading = firstColumn.querySelector('h3');
-  if (firstHeading) {
-    const headingElem = document.createElement('p');
-    headingElem.textContent = firstHeading.textContent.trim();
-    firstColumnContent.push(headingElem);
-  }
+    const heading = col.querySelector('h3');
+    if (heading) {
+      const headingElement = document.createElement('h3');
+      headingElement.textContent = heading.textContent;
+      colContent.push(headingElement);
+    }
 
-  const firstParagraphs = Array.from(firstColumn.querySelectorAll('p'));
-  firstParagraphs.forEach((para) => {
-    const paraElement = document.createElement('p');
-    paraElement.innerHTML = para.innerHTML.trim();
-    firstColumnContent.push(paraElement);
+    const bars = [...col.querySelectorAll('div[data-component="PercentBar"] > div')];
+    
+    bars.forEach((bar) => {
+      const textElement = bar.querySelector('p');
+      if (textElement) {
+        const span = textElement.querySelector('span');
+        const spanContent = span ? span.textContent.trim() : '';
+        const barContent = textElement.textContent.replace(spanContent, '').replace(/:\s*:/g, ':').trim();
+        const content = `${spanContent} ${barContent}`;
+        const paragraph = document.createElement('p');
+        paragraph.textContent = content;
+        colContent.push(paragraph);
+      }
+    });
+
+    contentCells.push(colContent);
   });
 
-  // Process second column
-  const secondColumn = columns[1];
-  const secondHeading = secondColumn.querySelector('h3');
-  if (secondHeading) {
-    const headingElem = document.createElement('p');
-    headingElem.textContent = secondHeading.textContent.trim();
-    secondColumnContent.push(headingElem);
-  }
+  // Ensure the table rows and columns align with the example format
+  const contentRow = contentCells;
 
-  const secondParagraphs = Array.from(secondColumn.querySelectorAll('p'));
-  secondParagraphs.forEach((para) => {
-    const paraElement = document.createElement('p');
-    paraElement.innerHTML = para.innerHTML.trim();
-    secondColumnContent.push(paraElement);
-  });
+  // Create table using the WebImporter DOMUtils helper
+  const table = WebImporter.DOMUtils.createTable([headerRow, contentRow], document);
 
-  // Create table data
-  const tableData = [headerRow, [firstColumnContent, secondColumnContent]];
-
-  // Create block table
-  const columnsTable = WebImporter.DOMUtils.createTable(tableData, document);
-
-  // Replace the original element
-  element.replaceWith(columnsTable);
+  // Replace original element with the new structured table
+  element.replaceWith(table);
 }

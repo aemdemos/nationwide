@@ -1,26 +1,32 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const cells = [];
-
-  // Create the header row dynamically based on the example
+  // Create the header row with the exact block name
   const headerRow = ['Search'];
-  cells.push(headerRow);
 
-  // Dynamically extract the query index URL from the HTML element
-  let queryIndexUrl = '';
+  // Extract the URL dynamically from the element
   const formElement = element.querySelector('form');
+  let url = '';
   if (formElement) {
-    const actionUrl = formElement.getAttribute('action');
-    queryIndexUrl = actionUrl && actionUrl.startsWith('http') ? actionUrl : 'https://main--helix-block-collection--adobe.hlx.page/block-collection/sample-search-data/query-index.json';
-  } else {
-    queryIndexUrl = 'https://main--helix-block-collection--adobe.hlx.page/block-collection/sample-search-data/query-index.json';
+    const action = formElement.getAttribute('action');
+    if (action && action !== '#') {
+      url = action;
+    }
   }
 
-  cells.push([queryIndexUrl]);
+  // Set a default fallback URL if the dynamic extraction fails
+  if (!url) {
+    url = 'https://main--helix-block-collection--adobe.hlx.page/block-collection/sample-search-data/query-index.json';
+  }
 
-  // Create the block table
-  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+  // Create the content row with the extracted or fallback URL
+  const contentRow = [url];
 
-  // Replace the original element with the new block table
+  // Build the table data
+  const tableData = [headerRow, contentRow];
+
+  // Create the block table using WebImporter.DOMUtils.createTable()
+  const blockTable = WebImporter.DOMUtils.createTable(tableData, document);
+
+  // Replace the original element with the structured block table
   element.replaceWith(blockTable);
 }

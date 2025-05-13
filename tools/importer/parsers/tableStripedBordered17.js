@@ -1,53 +1,39 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Create the header row matching EXACTLY the example markdown
-  const headerRow = ['Product Name', 'Website'];
+    const rows = [];
 
-  // Extract rows dynamically from the original HTML
-  const rows = Array.from(element.querySelectorAll('tbody tr')).map(row => {
-    const columns = row.querySelectorAll('td');
+    // Add the correct header row from the example
+    const headerRow = ['Product Name', 'Website'];
+    rows.push(headerRow);
 
-    // Extract plain text for the 'Product Name' column
-    const productNameElement = columns[0]?.querySelector('p');
-    const descriptionElement = columns[0]?.querySelector('div');
-    const productName = productNameElement ? productNameElement.textContent.trim() : '';
-    const description = descriptionElement ? descriptionElement.textContent.trim() : '';
+    // Locate the table element within the provided element
+    const table = element.querySelector('table');
+    const bodyRows = table.querySelectorAll('tbody tr');
 
-    // Combine product name and description into separate paragraphs
-    const productNameCell = document.createElement('div');
-    if (productName) {
-      const productNameParagraph = document.createElement('p');
-      productNameParagraph.textContent = productName;
-      productNameCell.appendChild(productNameParagraph);
-    }
-    if (description) {
-      const descriptionParagraph = document.createElement('p');
-      descriptionParagraph.textContent = description;
-      productNameCell.appendChild(descriptionParagraph);
-    }
+    bodyRows.forEach(tr => {
+        const productNameCell = tr.querySelector('td:first-child');
+        const websiteCell = tr.querySelector('td:last-child a');
 
-    // Extract the link and format it as an anchor element for the 'Website' column
-    const websiteLink = columns[5]?.querySelector('a');
-    let websiteAnchor = null;
+        const productName = productNameCell ? Array.from(productNameCell.childNodes).map(node => {
+            if (node.nodeType === document.ELEMENT_NODE) {
+                return node.cloneNode(true); // Clone elements to retain their structure
+            } else if (node.nodeType === document.TEXT_NODE) {
+                return node.textContent.trim(); // Handle plain text nodes
+            }
+        }).filter(Boolean) : '';
 
-    if (websiteLink) {
-      websiteAnchor = document.createElement('a');
-      websiteAnchor.href = websiteLink.href;
-      websiteAnchor.textContent = websiteLink.href;
-    }
+        const website = websiteCell ? document.createElement('a') : '';
 
-    return [
-      productNameCell,
-      websiteAnchor
-    ];
-  });
+        if (websiteCell) {
+            website.href = websiteCell.href;
+            website.textContent = websiteCell.textContent.trim();
+        }
 
-  // Combine the header row and extracted rows into a single table structure
-  const tableContent = [headerRow, ...rows];
+        rows.push([productName, website]);
+    });
 
-  // Create the final block table
-  const structuredTable = WebImporter.DOMUtils.createTable(tableContent, document);
+    const tableBlock = WebImporter.DOMUtils.createTable(rows, document);
 
-  // Replace the original element with the new table
-  element.replaceWith(structuredTable);
+    // Replace the original element with the structured table block
+    element.replaceWith(tableBlock);
 }

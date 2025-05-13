@@ -1,36 +1,28 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract dynamic content
+  // Extract content dynamically from the provided HTML element
   const logoLink = element.querySelector('a.Logo__LogoLink-sc-vu9l0h-0');
+  const videoLink = logoLink ? logoLink.href : 'No link available';
+  const videoLinkText = logoLink ? logoLink.getAttribute('aria-label') : 'No link text available';
+  const logoSvg = element.querySelector('svg');
 
-  // Validate essential content
-  if (!logoLink) {
-    console.error('Essential elements are missing from the HTML structure.');
-    return;
-  }
+  // Combine SVG and link text into a single cell logically
+  const combinedContent = [];
+  if (logoSvg) combinedContent.push(logoSvg.cloneNode(true));
+  const linkElement = document.createElement('a');
+  linkElement.href = videoLink;
+  linkElement.textContent = videoLinkText;
+  combinedContent.push(linkElement);
 
-  // Create the header row exactly as specified in the example
-  const headerRow = ['Video'];
+  // Define table structure with correct header row matching the example
+  const cells = [
+    ['Video'],
+    [combinedContent],
+  ];
 
-  // Extract video source as a link dynamically
-  const videoSourceLink = document.createElement('a');
-  videoSourceLink.href = logoLink.href;
-  videoSourceLink.textContent = logoLink.getAttribute('aria-label') || 'Nationwide - Home';
+  // Create table using WebImporter.DOMUtils
+  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Extract the logo image dynamically if available
-  const logoImage = logoLink.querySelector('svg') || null;
-
-  // Create separate rows for each content item (poster image and video source)
-  const contentRows = [];
-  if (logoImage) {
-    contentRows.push([logoImage]);
-  }
-  contentRows.push([videoSourceLink]);
-
-  // Create the block table
-  const tableCells = [headerRow, ...contentRows];
-  const blockTable = WebImporter.DOMUtils.createTable(tableCells, document);
-
-  // Replace the original element with the new block table
-  element.replaceWith(blockTable);
+  // Replace original element with new block
+  element.replaceWith(block);
 }

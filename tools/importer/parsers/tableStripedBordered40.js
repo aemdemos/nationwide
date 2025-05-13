@@ -1,59 +1,58 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-    const content = [];
+  const blocks = [];
 
-    // Extract Credit Ratings Table
-    const creditRatingsHeading = element.querySelector('h2#credit-ratings');
-    const creditRatingsTable = element.querySelector('table');
-    if (creditRatingsHeading && creditRatingsTable) {
-        const headerRow = ['Table (striped, bordered)'];
-        const tableContent = [];
+  // Process Credit Ratings section
+  const creditRatingsHeading = element.querySelector('#credit-ratings');
+  if (creditRatingsHeading) {
+    blocks.push(document.createElement('hr'));
 
-        // Add the header row
-        const headers = Array.from(creditRatingsTable.querySelectorAll('thead th')).map(th => th.textContent.trim());
-        tableContent.push(headers);
+    // Create Section Metadata Table
+    blocks.push(WebImporter.DOMUtils.createTable([
+      ['Section Metadata'],
+      ['style', 'Table (striped & bordered)'],
+    ], document));
 
-        // Add the body rows
-        const rows = Array.from(creditRatingsTable.querySelectorAll('tbody tr'));
-        rows.forEach(row => {
-            const cells = Array.from(row.querySelectorAll('td, th')).map(cell => cell.textContent.trim());
-            tableContent.push(cells);
-        });
-
-        const creditRatingsBlock = WebImporter.DOMUtils.createTable([headerRow, ...tableContent], document);
-        content.push(creditRatingsBlock);
+    const table = element.querySelector('table');
+    if (table) {
+      const rows = Array.from(table.rows).map(row => (
+        Array.from(row.cells).map(cell => cell.innerHTML.trim())
+      ));
+      blocks.push(WebImporter.DOMUtils.createTable(rows, document));
     }
+  }
 
-    // Extract Bloomberg Tickers
-    const bloombergTickersHeading = element.querySelector('h3');
-    const bloombergTickersContent = element.querySelector('h3 + div');
-    if (bloombergTickersHeading && bloombergTickersContent) {
-        const headerRow = ['Bloomberg Tickers'];
-        const tickerLines = Array.from(bloombergTickersContent.querySelectorAll('p')).map(p => p.textContent.trim());
-        const tickerBlock = WebImporter.DOMUtils.createTable([headerRow, ...tickerLines.map(line => [line])], document);
-        content.push(tickerBlock);
-    }
+  // Process Bloomberg Tickers section
+  const bloombergTickerHeading = element.querySelector('h3');
+  if (bloombergTickerHeading) {
+    blocks.push(document.createElement('hr'));
 
-    // Responsible Business Section (without metadata)
-    const responsibleBusinessHeading = element.querySelector('h2#responsible-business');
-    const responsibleBusinessContent = element.querySelector('h2#responsible-business + div');
-    if (responsibleBusinessHeading && responsibleBusinessContent) {
-        const description = responsibleBusinessContent.querySelector('p')?.textContent.trim() || '';
-        const link = responsibleBusinessContent.querySelector('a');
-        const linkElement = link ? document.createElement('a') : null;
-        if (linkElement) {
-            linkElement.href = link.href;
-            linkElement.textContent = link.textContent;
-        }
+    blocks.push(WebImporter.DOMUtils.createTable([
+      ['Section Metadata'],
+      ['style', 'text'],
+    ], document));
 
-        const responsibleBusinessBlock = WebImporter.DOMUtils.createTable([
-            ['Description'],
-            [description, linkElement].filter(item => item) // Filter out null values
-        ], document);
+    const paragraphs = Array.from(element.querySelectorAll('h3 + div p'));
+    paragraphs.forEach(p => blocks.push(p.cloneNode(true)));
+  }
 
-        content.push(responsibleBusinessBlock);
-    }
+  // Process Responsible Business section
+  const responsibleBusinessHeading = element.querySelector('#responsible-business');
+  if (responsibleBusinessHeading) {
+    blocks.push(document.createElement('hr'));
 
-    // Finally, replace the element
-    element.replaceWith(...content);
+    blocks.push(WebImporter.DOMUtils.createTable([
+      ['Section Metadata'],
+      ['style', 'text'],
+    ], document));
+
+    const description = element.querySelector('#responsible-business + div p');
+    const link = element.querySelector('a');
+
+    if (description) blocks.push(description.cloneNode(true));
+    if (link) blocks.push(link.cloneNode(true));
+  }
+
+  // Replace original element
+  element.replaceWith(...blocks);
 }

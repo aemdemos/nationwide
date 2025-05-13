@@ -1,62 +1,60 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Helper function for extracting image data
-  const extractImage = (img) => {
-    if (!img) return null;
-    const imageLink = document.createElement('a');
-    imageLink.href = img.src;
-    imageLink.textContent = img.alt || 'Image';
-    return imageLink;
-  };
-
-  // Helper function for extracting list data
-  const extractList = (ul) => {
-    if (!ul) return null;
-    const listItems = Array.from(ul.querySelectorAll('li')).map(item => item.textContent.trim());
-    return listItems.join(', ');
-  };
-
-  // Helper function for extracting heading and paragraph data
-  const extractTextContent = (container, selector) => {
-    const element = container.querySelector(selector);
-    return element ? element.textContent.trim() : '';
-  };
-
+  const sections = [];
   const hr = document.createElement('hr');
-  let blockTable;
 
-  // Parse element based on its structure
-  if (element.querySelector('[data-testid="MessagingFramework"]')) {
-    const header = extractTextContent(element, 'h2');
-    const paragraph = extractTextContent(element, '.vertical-rhythm--richText');
+  // Iterate through each block
+  element.querySelectorAll('div[data-component="ImageWithContent"]').forEach((block) => {
+    const headerRow = ['Columns'];
 
-    // Ensure table header matches example
-    const tableRows = [
-      ['Columns'],
-      [`${header} ${paragraph}`],
-    ];
+    const columns = [];
 
-    blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
-  } else if (element.querySelector('[data-component="ImageWithContent"]')) {
-    const heading = extractTextContent(element, 'h3');
-    const paragraph = extractTextContent(element, 'p');
-    const image = extractImage(element.querySelector('img'));
-    const list = extractList(element.querySelector('ul'));
+    // Extract image area content
+    const imageArea = block.querySelector('.ImageWithContent__StyledImageArea-sc-rcc1rj-0 img');
+    if (imageArea) {
+      const image = document.createElement('img');
+      image.src = imageArea.src;
+      columns.push(image);
+    }
 
-    // Ensure table header matches example
-    const tableRows = [
-      ['Columns'],
-      [
-        heading,
-        paragraph,
-        list,
-        image,
-      ].filter(Boolean),
-    ];
+    // Extract content area content
+    const contentArea = block.querySelector('.ImageWithContent__StyledContentArea-sc-rcc1rj-1');
+    if (contentArea) {
+      const heading = contentArea.querySelector('h2, h3, h4');
+      const paragraphs = contentArea.querySelectorAll('p');
+      const links = contentArea.querySelectorAll('a');
 
-    blockTable = WebImporter.DOMUtils.createTable(tableRows, document);
+      const contentElements = [];
+      if (heading) {
+        const headingElement = document.createElement('span');
+        headingElement.textContent = heading.textContent;
+        contentElements.push(headingElement);
+      }
+
+      paragraphs.forEach((p) => {
+        const paragraphElement = document.createElement('p');
+        paragraphElement.textContent = p.textContent;
+        contentElements.push(paragraphElement);
+      });
+
+      links.forEach((link) => {
+        const linkElement = document.createElement('a');
+        linkElement.href = link.href;
+        linkElement.textContent = link.textContent;
+        contentElements.push(linkElement);
+      });
+
+      columns.push(contentElements);
+    }
+
+    if (columns.length > 0) {
+      const blockTable = WebImporter.DOMUtils.createTable([headerRow, columns], document);
+      sections.push(blockTable);
+    }
+  });
+
+  // Replace only with extracted sections and maintain exact structure
+  if (sections.length > 0) {
+    element.replaceWith(hr, ...sections);
   }
-
-  // Replace the element with parsed content
-  element.replaceWith(hr, blockTable);
 }

@@ -1,52 +1,54 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  const getTextContent = (el) => (el ? el.textContent.trim() : '');
-
-  // Extract header row (exact match to example)
+  // Create the header row for the table
   const headerRow = ['Columns'];
 
-  // Extract content dynamically from the element
-  const rows = [];
+  // Extract the content from the element dynamically
+  const columns = [];
 
-  const columnElements = element.querySelectorAll('.NelComponents__Col-sc-vsly48-38');
-  columnElements.forEach((col, index) => {
-    const colContent = [];
+  // Locate all child nodes that represent the columns
+  const columnElements = element.querySelectorAll('div[data-ref="gridColumn"]');
+  columnElements.forEach((columnEl) => {
+    const columnContent = [];
 
-    // Extract images inside column
-    const images = col.querySelectorAll('img');
+    // Extract text content
+    const textContent = columnEl.querySelector('p');
+    if (textContent && textContent.textContent.trim()) {
+      columnContent.push(textContent.textContent.trim());
+    }
+
+    // Extract image elements
+    const images = columnEl.querySelectorAll('img');
     images.forEach((img) => {
-      const imageElement = document.createElement('img');
-      imageElement.src = img.src;
-      imageElement.alt = img.alt || '';
-      colContent.push(imageElement);
+      if (img.src) {
+        const imgElement = document.createElement('img');
+        imgElement.src = img.src;
+        columnContent.push(imgElement);
+      }
     });
 
-    // Extract paragraphs inside column
-    const paragraph = col.querySelector('p');
-    if (paragraph) {
-      colContent.push(document.createTextNode(getTextContent(paragraph)));
-    }
+    // Extract links
+    const links = columnEl.querySelectorAll('a');
+    links.forEach((link) => {
+      if (link.href) {
+        const linkElement = document.createElement('a');
+        linkElement.href = link.href;
+        linkElement.textContent = link.textContent.trim();
+        columnContent.push(linkElement);
+      }
+    });
 
-    // Extract links inside column
-    const link = col.querySelector('a');
-    if (link) {
-      const linkElement = document.createElement('a');
-      linkElement.href = link.href;
-      linkElement.textContent = getTextContent(link);
-      colContent.push(linkElement);
-    }
-
-    rows.push(colContent);
+    // Push the collected content to the columns array
+    columns.push(columnContent);
   });
 
-  // Ensure rows are not empty
-  if (rows.length === 0) {
-    rows.push(['No content available']);
-  }
+  // Create the table using WebImporter.DOMUtils.createTable
+  const cells = [
+    headerRow,
+    ...columns
+  ];
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Create the table dynamically with extracted content
-  const cells = [headerRow, ...rows];
-  const table = WebImporter.DOMUtils.createTable(cells, document);
-
-  element.replaceWith(table);
+  // Replace the original element with the new block table
+  element.replaceWith(blockTable);
 }

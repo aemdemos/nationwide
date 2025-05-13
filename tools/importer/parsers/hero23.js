@@ -1,42 +1,46 @@
 /* global WebImporter */
 export default function parse(element, { document }) {
-  // Extract the image
-  const imgElement = element.querySelector('img');
-  const image = imgElement ? document.createElement('img') : null;
-  if (image) {
-    image.src = imgElement.src;
-    image.alt = imgElement.alt;
+  // Extract the image element and its attributes dynamically
+  const imageElement = element.querySelector('img');
+  const backgroundImage = imageElement ? document.createElement('img') : null;
+  if (backgroundImage) {
+    backgroundImage.src = imageElement.src;
+    backgroundImage.alt = imageElement.alt || ''; // Handle missing alt attribute
   }
 
-  // Extract the heading
-  const headingElement = element.querySelector('[data-ref="heading"]');
-  const heading = headingElement ? document.createElement('h1') : null;
-  if (heading) {
-    heading.textContent = headingElement.textContent;
+  // Dynamically extract the title
+  const titleElement = element.querySelector('h2');
+  const title = titleElement ? document.createElement('h2') : null;
+  if (title) {
+    title.textContent = titleElement.textContent;
   }
 
-  // Extract the content
-  const contentElement = element.querySelector('.vertical-rhythm--richText');
+  // Extract the content dynamically
+  const contentElement = element.querySelector('.Content-sc-mh9bui-0');
   const content = contentElement ? document.createElement('div') : null;
   if (content) {
     content.innerHTML = contentElement.innerHTML;
   }
 
-  // Extract the button
-  const buttonElement = element.querySelector('[data-testid="PrimaryButton"]');
-  const button = buttonElement ? document.createElement('a') : null;
-  if (button) {
-    button.href = buttonElement.href;
-    button.textContent = buttonElement.textContent;
+  // Dynamically extract the call-to-action link
+  const ctaElement = element.querySelector('a');
+  const callToAction = ctaElement ? document.createElement('a') : null;
+  if (callToAction) {
+    callToAction.href = ctaElement.href;
+    callToAction.textContent = ctaElement.textContent;
   }
 
-  // Create the block table
+  // Create the table structure
   const cells = [
-    ['Hero'],
-    [[image, heading, content, button]],
+    ['Hero'], // Header row exactly matches example
+    [
+      [backgroundImage, title, content, callToAction].filter(Boolean) // Filter out null values for missing elements
+    ]
   ];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
 
-  // Replace the original element with the block table
-  element.replaceWith(block);
+  // Use the helper function to create the table
+  const blockTable = WebImporter.DOMUtils.createTable(cells, document);
+
+  // Replace the original element with the new block table
+  element.replaceWith(blockTable);
 }

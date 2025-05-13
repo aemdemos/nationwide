@@ -1,42 +1,54 @@
 /* global WebImporter */
- export default function parse(element, { document }) {
-  const headerRow = ['Cards'];
+export default function parse(element, { document }) {
   const rows = [];
 
-  // Find all sections within the element
-  const sections = element.querySelectorAll('section[data-component="CardLinkList"]');
+  // Add the block name row
+  rows.push(['Cards']);
 
-  sections.forEach(section => {
-    const title = section.querySelector('h2')?.textContent.trim();
-    const listItems = section.querySelectorAll('ul li');
+  // Extract card data from the element
+  const cards = element.querySelectorAll('[data-component="CardLinkList"]');
+  cards.forEach((card) => {
+    const title = card.querySelector('h2')?.textContent.trim();
 
-    const links = Array.from(listItems).map(li => {
-      const link = li.querySelector('a');
-      if (link) {
-        const text = link.textContent.trim();
-        const href = link.getAttribute('href');
-        const anchor = document.createElement('a');
-        anchor.href = href;
-        anchor.textContent = text;
-        return anchor;
-      }
-      return null;
-    }).filter(Boolean);
+    const links = [...card.querySelectorAll('li a')].map((link) => {
+      const textContent = link.querySelector('span')?.textContent.trim();
+      const href = link.href;
 
-    const footerLink = section.querySelector('footer a');
-    if (footerLink) {
-      const footerText = footerLink.textContent.trim();
-      const footerHref = footerLink.getAttribute('href');
-      const footerAnchor = document.createElement('a');
-      footerAnchor.href = footerHref;
-      footerAnchor.textContent = footerText;
-      links.push(footerAnchor);
+      const linkElement = document.createElement('a');
+      linkElement.href = href;
+      linkElement.textContent = textContent;
+
+      return linkElement;
+    });
+
+    const footerLink = card.querySelector('footer a');
+    const footerContent = footerLink?.querySelector('span')?.textContent.trim();
+    const footerHref = footerLink?.href;
+
+    const footerLinkElement = document.createElement('a');
+    if (footerHref) {
+      footerLinkElement.href = footerHref;
+      footerLinkElement.textContent = footerContent;
     }
 
-    rows.push([title, links]);
+    const cardContent = document.createElement('div');
+
+    if (title) {
+      const titleElement = document.createElement('h2');
+      titleElement.textContent = title;
+      cardContent.append(titleElement);
+    }
+
+    links.forEach((linkElement) => cardContent.append(linkElement));
+
+    if (footerHref) {
+      cardContent.append(footerLinkElement);
+    }
+
+    rows.push([cardContent]);
   });
 
-  const cells = [headerRow, ...rows];
-  const block = WebImporter.DOMUtils.createTable(cells, document);
+  const block = WebImporter.DOMUtils.createTable(rows, document);
+
   element.replaceWith(block);
 }
