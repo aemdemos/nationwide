@@ -41,7 +41,7 @@
 
 /* --- merged .hero.hero34 --- */
 .hero.hero34 {
-  background: #061945;
+  background: rgb(1 21 70);
   padding: 64px 0 0 64px;
   min-height: 440px;
   box-sizing: border-box;
@@ -52,6 +52,7 @@
   flex-direction: row;
   align-items: flex-start;
 }
+
 .hero.hero34 > div {
   display: flex;
   flex-direction: column;
@@ -69,17 +70,17 @@
   line-height: 1.12;
   letter-spacing: -0.5px;
   color: #fff;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   max-width: 600px;
   white-space: pre-line; /* Respect line breaks if present */
 }
 
 .hero.hero34 > div > div > p:nth-child(2) {
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   font-size: 16px;
   color: #fff;
   font-weight: 400;
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   line-height: 1.45;
   max-width: 540px;
 }
@@ -91,7 +92,7 @@
 .hero.hero34 .button {
   background: #fff !important;
   color: #061945 !important;
-  font-family: 'Inter', Arial, sans-serif;
+  font-family: Inter, Arial, sans-serif;
   font-size: 20px;
   font-weight: bold;
   border: none;
@@ -108,22 +109,26 @@
   color: #061945 !important;
 }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .hero.hero34 {
     padding: 32px 0 0 16px;
     min-height: 280px;
   }
+
   .hero.hero34 > div {
     max-width: 97vw;
   }
+
   .hero.hero34 > div > div > p:first-child {
     font-size: 32px;
     max-width: 97vw;
   }
+
   .hero.hero34 > div > div > p:nth-child(2) {
     font-size: 15px;
     max-width: 90vw;
   }
+
   .hero.hero34 .button {
     font-size: 16px;
     padding: 10px 20px;
