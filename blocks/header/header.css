@@ -39,15 +39,11 @@ header nav[aria-expanded='true'] {
 
   header nav[aria-expanded='true'] {
     display: grid;
-    grid-template-areas:
-      'brand brand tools'
-      'sections sections sections';
-    grid-template-columns: 0 300px 775px;
-    grid-template-rows: 109px 40px;
+    grid-template:
+      'brand brand tools' 109px
+      'sections sections sections' 40px
+      / 0 300px 775px;
     justify-content: space-between;
-  }
-
-  header nav[aria-expanded='true'] {
     min-height: 0;
     overflow: visible;
   }
@@ -238,9 +234,15 @@ header nav .nav-sections ul > li > ul > li {
     border-bottom: 4px solid var(--background-color-header);
   }
 
+  /* 👇 Moved this selector up to avoid descending specificity issues */
+  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
+    padding: 8px 0;
+    color: var(--background-color-header);
+  }
+
   header nav .nav-sections .default-content-wrapper > ul > li:hover {
-    color: rgb(144, 180, 255);
-    border-bottom: 4px solid rgb(144, 180, 255);
+    color: rgb(144 180 255);
+    border-bottom: 4px solid rgb(144 180 255);
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul {
@@ -270,11 +272,6 @@ header nav .nav-sections ul > li > ul > li {
     border-left: 8px solid transparent;
     border-right: 8px solid transparent;
     border-bottom: 8px solid var(--light-color);
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 8px 0;
-    color: var(--background-color-header);
   }
 }
 

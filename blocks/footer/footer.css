@@ -15,7 +15,7 @@ footer .footer > div {
     'links links'
     'disclaimer social';
   grid-template-columns: auto 31%;
-  border-bottom: 5px solid rgb(249, 56, 61);
+  border-bottom: 5px solid rgb(249 56 61);
 }
 
 footer .footer p {
@@ -34,10 +34,6 @@ footer .footer a:hover {
   color: #80ACFF;
 }
 
-footer .footer .section.links {
-  grid-area: links;
-}
-
 footer .footer .section.disclaimer {
   grid-area: disclaimer;
 }
@@ -47,6 +43,7 @@ footer .footer .section.social {
 }
 
 footer .footer .section.links {
+  grid-area: links;
   border-bottom: 1px solid #fff;
   margin-bottom: 25px;
 }
