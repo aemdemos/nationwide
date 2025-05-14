@@ -1,4 +1,5 @@
 
+
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -131,3 +132,84 @@
     font-size: 16px !important;
   }
 }
+
+.columns.columns30 > div {
+  display: flex;
+  flex-direction: row; /* Ensure elements are side by side */
+  justify-content: space-between; /* Even spacing between columns */
+  align-items: flex-start; /* Align items to the top */
+  gap: 16px; /* Reduce horizontal gap for compact layout */
+}
+
+.columns.columns30 > div > div {
+  flex: 1; /* Equal width for columns */
+  max-width: 44%; /* Slightly narrower columns for compactness */
+  box-sizing: border-box; /* Include padding */
+  text-align: left; /* Keep all text left-aligned */
+}
+
+.columns.columns30 p:first-of-type {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0B1F52; /* Dark navy blue for title */
+  margin-bottom: 10px; /* Tighter spacing below title */
+}
+
+.columns.columns30 p:nth-of-type(3) {
+  font-size: 16px;
+  font-weight: 400;
+  color: #5A5A5A; /* Medium gray for description */
+  margin-bottom: 6px; /* Further reduce spacing below description */
+}
+
+.columns.columns30 .button-container {
+  margin-top: 6px; /* Align buttons closer to description */
+  text-align: left; /* Ensure buttons are left-aligned */
+}
+
+.columns.columns30 .button-container .button {
+  background: none;
+  color: #0B1F52; /* Dark navy blue for buttons */
+  border: none;
+  border-radius: 0;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: underline; /* Add underline for links */
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  display: inline;
+  text-align: left;
+  line-height: normal;
+  white-space: normal;
+  cursor: pointer;
+}
+
+.columns.columns30 picture {
+  display: none; /* Ensure images are hidden */
+}
+
+@media (max-width: 768px) {
+  .columns.columns30 > div {
+    flex-direction: column; /* Stack columns vertically on smaller screens */
+    gap: 12px; /* Adjust gap for smaller screens */
+  }
+
+  .columns.columns30 > div > div {
+    max-width: 100%; /* Allow full-width stacking */
+  }
+
+  .columns.columns30 p:first-of-type {
+    font-size: 18px; /* Adjust title font size for smaller screens */
+    margin-bottom: 8px; /* Adjust spacing below title for smaller screens */
+  }
+
+  .columns.columns30 p:nth-of-type(3) {
+    margin-bottom: 10px; /* Ensure spacing consistency for smaller screens */
+  }
+
+  .columns.columns30 .button-container .button {
+    font-size: 16px; /* Ensure button size remains consistent */
+  }
+}
+
