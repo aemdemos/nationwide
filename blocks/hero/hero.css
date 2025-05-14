@@ -1,5 +1,5 @@
 
-/* Base CSS */
+
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -136,141 +136,131 @@
   }
 }
 
-/* --- merged result for .hero.hero42 --- */
+/* --- merged .hero.hero42 --- */
 .hero.hero42 {
-  display: flex;
-  flex-direction: row; /* Ensure text and image are side by side */
-  align-items: center; /* Vertically align text and image */
-  justify-content: space-between; /* Space out text and image */
-  background: #03194A; /* Dark blue background */
+  background: #03194A;
   color: #fff;
-  padding: 72px 40px; /* Add padding for better spacing */
+  padding: 72px 0;
   box-sizing: border-box;
   width: 100vw;
-  margin: 0 auto; /* Center block horizontally */
+  margin: 0;
 }
 
 .hero.hero42 > div {
   display: flex;
-  flex-direction: row; /* Align columns side by side */
-  gap: 40px; /* Space between text and image */
-  align-items: center; /* Vertically center text and image */
-  justify-content: flex-start; /* Align columns to the left */
-  max-width: 1200px; /* Restrict width */
-  padding: 0 0 0 64px; /* Add left padding */
-  width: 100%; /* Use full width */
-  min-height: 420px; /* Ensure minimum block height */
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 0 0 64px;
+  width: 100%;
+  min-height: 420px;
+}
+
+.hero.hero42 > div > div {
+  max-width: 50%;
 }
 
 .hero.hero42 > div > div:first-child {
-  flex: 1; /* Allow text column to take equal space */
-  max-width: 600px; /* Restrict text column width */
-  min-width: 340px; /* Set minimum width for text column */
+  flex: 1 1 0;
+  max-width: 600px;
+  min-width: 340px;
   display: flex;
-  flex-direction: column; /* Stack text elements vertically */
-  align-items: flex-start; /* Align text to the left */
-  justify-content: flex-start; /* Align content to the top */
-}
-
-.hero.hero42 > div > div:last-child {
-  flex: 1; /* Allow image column to take equal space */
-  order: 2; /* Ensure image is on the right side */
-  display: flex;
-  justify-content: center; /* Center the image horizontally */
-  align-items: center; /* Center the image vertically */
-}
-
-.hero.hero42 > div > div:last-child picture {
-  display: block; /* Ensure the image container is visible */
-}
-
-.hero.hero42 > div > div:last-child picture img {
-  object-fit: cover; /* Ensure proper scaling without distortion */
-  max-width: 100%; /* Prevent image overflow */
-  height: auto; /* Maintain aspect ratio */
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
 .hero.hero42 > div > div:first-child > p:first-child {
   font-family: var(--heading-font-family);
-  font-size: 38px; /* Larger title font size for emphasis */
-  font-weight: 700; /* Bold title */
-  margin: 0 0 24px; /* Increase spacing below title */
-  line-height: 1.25; /* Adjust line height */
-  color: #FFFFFF; /* White text color */
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: 0 0 32px;
+  line-height: 1.13;
+  color: #fff;
 }
 
 .hero.hero42 > div > div:first-child > p:nth-child(2) {
-  font-size: 18px; /* Slightly larger subheading font size */
-  font-weight: 400; /* Regular weight for body text */
-  margin: 0 0 24px; /* Reduce spacing below subheading */
-  color: #FFFFFF; /* White text color */
-  line-height: 1.6; /* Adjust line height */
+  font-size: 1.14rem;
+  font-weight: 400;
+  margin: 0 0 32px;
+  color: #fff;
 }
 
 .hero.hero42 > div > div:first-child > p:nth-child(3),
 .hero.hero42 > div > div:first-child > p:nth-child(4),
 .hero.hero42 > div > div:first-child > p:nth-child(5) {
-  margin-bottom: 10px; /* Reduce spacing between bullet points */
-  font-size: 16px; /* Text font size */
-  color: #FFFFFF; /* White text color */
-  position: relative; /* Position for checkmark icon */
-  padding-left: 38px; /* Space for icon */
+  position: relative;
+  padding-left: 38px;
+  margin: 0 0 18px;
+  font-size: 1.13rem;
+  color: #fff;
+  min-height: 32px;
   display: flex;
-  align-items: center; /* Vertically align text with icon */
+  align-items: center;
 }
 
 .hero.hero42 > div > div:first-child > p:nth-child(3)::before,
 .hero.hero42 > div > div:first-child > p:nth-child(4)::before,
 .hero.hero42 > div > div:first-child > p:nth-child(5)::before {
-  content: ''; /* Create checkmark icon */
-  position: absolute; /* Place icon */
-  left: 0; /* Align icon to left side */
-  top: 5px; /* Position vertically */
-  width: 24px; /* Icon size */
-  height: 24px; /* Icon size */
-  background: #24B26F; /* Green background */
-  border-radius: 50%; /* Circular shape */
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 24px;
+  height: 24px;
+  background: #24B26F;
+  border-radius: 50%;
   display: inline-block;
 }
 
 .hero.hero42 > div > div:first-child > p:nth-child(3)::after,
 .hero.hero42 > div > div:first-child > p:nth-child(4)::after,
 .hero.hero42 > div > div:first-child > p:nth-child(5)::after {
-  content: ''; /* Create checkmark symbol */
-  position: absolute; /* Place inside circle */
-  left: 6px; /* Position to center */
-  top: 13px; /* Position to center */
-  width: 12px; /* Checkmark line length */
-  height: 6px; /* Checkmark line thickness */
-  border-left: 3px solid #FFFFFF; /* White check line */
-  border-bottom: 3px solid #FFFFFF; /* White check line */
-  transform: rotate(-45deg); /* Rotate to form checkmark */
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 13px;
+  width: 12px;
+  height: 6px;
+  border-left: 3px solid #fff;
+  border-bottom: 3px solid #fff;
+  transform: rotate(-45deg);
   box-sizing: border-box;
 }
 
-.hero.hero42 .button-container {
-  margin-top: 16px; /* Reduce spacing above the button */
-  text-align: center; /* Center-align the button */
+.hero-container > .hero-wrapper > .hero.hero42 > div > div:nth-child(2) > picture {
+  position: static;
 }
 
-.hero.hero42 .button {
-  font-size: 20px; /* Increase button text size */
-  padding: 16px 32px; /* Add more padding for button */
-  border-radius: 999px; /* Fully rounded button */
-  background: #FFFFFF; /* Button background color */
-  color: #03194A; /* Button text color */
-  text-decoration: none; /* Remove underline */
-  box-shadow: none; /* Remove default shadow */
-  transition: background-color 0.2s; /* Smooth hover transition */
+.hero-container > .hero-wrapper > .hero.hero42 .button-container {
+  margin-top: 32px;
+  display: block;
 }
 
-.hero.hero42 .button:hover,
-.hero.hero42 .button:focus {
-  background: #f0f4ff; /* Hover background color */
-  color: #03194A; /* Hover text color */
+.hero-container > .hero-wrapper > .hero.hero42 .button {
+  background: #fff !important;
+  color: rgb(1 21 70) !important;
+  font-weight: 700;
+  font-size: 1.125rem;
+  border-radius: 999px;
+  padding: 16px 38px;
+  display: inline-block;
+  border: none;
+  text-decoration: none;
+  box-shadow: none;
+  margin: 0;
+  transition: background 0.2s;
 }
 
-@media (max-width: 900px) {
+.hero-container > .hero-wrapper > .hero.hero42 .button:hover,
+.hero-container > .hero-wrapper > .hero.hero42 .button:focus {
+  background: #f0f4ff !important;
+  color: #03194A !important;
+}
+
+@media (width <= 900px) {
   .hero.hero42 > div {
     flex-direction: row;
     align-items: flex-start;
@@ -278,20 +268,25 @@
     padding: 0 12px;
     min-height: unset;
   }
+
   .hero.hero42 > div > div:first-child {
     max-width: 100vw;
     min-width: 0;
     padding-right: 0;
   }
+
   .hero.hero42 > div > div:first-child > p:first-child {
     font-size: 1.4rem;
     margin-bottom: 22px;
   }
+
   .hero.hero42 > div > div:first-child > p:nth-child(2) {
     font-size: 0.97rem;
     margin-bottom: 22px;
   }
+
   .hero-container > .hero-wrapper > .hero.hero42 .button-container {
     margin-top: 20px;
   }
 }
+
