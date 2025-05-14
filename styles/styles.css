@@ -275,3 +275,7 @@ main .section.light, main .section.highlight {
 .section.hidden {
   display: none;
 }
+
+.section.blue-section {
+  background-color: var(--background-color-header);
+}
