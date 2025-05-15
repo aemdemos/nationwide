@@ -1,4 +1,5 @@
 
+
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -131,3 +132,78 @@
     font-size: 16px !important;
   }
 }
+
+.columns.columns30 {
+  display: flex; /* Enable Flexbox */
+  flex-direction: row !important; /* Arrange columns side by side */
+  justify-content: space-between; /* Space out columns evenly */
+  align-items: flex-start; /* Align columns at the top */
+  gap: 32px !important; /* Ensure horizontal spacing between columns */
+}
+
+.columns.columns30 > div {
+  display: flex; /* Enable Flexbox inside each column */
+  flex-direction: row; /* Arrange nested elements side by side */
+  flex-wrap: wrap; /* Allow wrapping if necessary */
+  flex: 1; /* Ensure equal width for both columns */
+}
+
+.columns.columns30 > div > div {
+  display: flex; /* Enable Flexbox for nested elements */
+  flex-direction: column; /* Stack content inside each nested div vertically */
+  align-items: flex-start; /* Align content to the left */
+}
+
+.columns.columns30 p:first-of-type {
+  font-size: 20px; /* Larger font size for title */
+  font-weight: bold; /* Make title bold */
+  color: #102049; /* Navy blue for title text */
+  margin: 0 0 6px !important; /* Reduce spacing below title */
+}
+
+.columns.columns30 p:nth-of-type(3) {
+  font-size: 16px; /* Smaller font size for paragraph */
+  color: #666666; /* Light gray text color */
+  margin: 0 0 4px !important; /* Reduce spacing below paragraph */
+}
+
+.columns.columns30 .button-container {
+  margin-top: 4px !important; /* Reduce spacing above link */
+  text-align: left !important; /* Align the button to the left */
+}
+
+.columns.columns30 .button-container .button {
+  background: none; /* Remove button background */
+  color: #102049; /* Navy blue text color */
+  border: none; /* Remove border */
+  border-radius: 0; /* Remove rounded corners */
+  text-decoration: underline; /* Add underline for link styling */
+  font-size: 16px; /* Match paragraph font size */
+  font-weight: bold; /* Make link text bold */
+  padding: 0; /* Remove padding */
+  display: inline-block; /* Ensure proper alignment */
+}
+
+@media (max-width: 600px) {
+  .columns.columns30 {
+    flex-direction: column !important; /* Stack columns vertically on smaller screens */
+    gap: 24px !important; /* Adjust spacing between stacked columns */
+  }
+
+  .columns.columns30 > div {
+    margin-bottom: 16px; /* Add spacing between stacked columns */
+  }
+
+  .columns.columns30 p:first-of-type {
+    margin: 0 0 8px !important; /* Ensure compact spacing below title on mobile */
+  }
+
+  .columns.columns30 p:nth-of-type(3) {
+    margin: 0 0 6px !important; /* Adjust spacing for paragraph on mobile */
+  }
+
+  .columns.columns30 .button-container {
+    margin-top: 4px !important; /* Ensure compact spacing above link on mobile */
+  }
+}
+
