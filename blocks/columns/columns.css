@@ -1,4 +1,4 @@
-
+/* Columns base styles */
 .columns > div {
   display: flex;
   flex-direction: column;
@@ -26,7 +26,6 @@
     flex-direction: unset;
     gap: 24px;
   }
-
   .columns > div > div {
     flex: 1;
     order: unset;
@@ -122,11 +121,9 @@
   .columns.columns1 {
     padding: 16px 8px !important;
   }
-
   .columns.columns1 p:first-of-type {
     font-size: 16px !important;
   }
-
   .columns.columns1 .button-container .button {
     font-size: 16px !important;
   }
@@ -134,57 +131,137 @@
 
 .columns.columns30 > div {
   display: flex;
-  flex-direction: row; /* Ensure the columns are side by side */
-  justify-content: space-between; /* Space evenly between the columns */
-  align-items: flex-start; /* Align text to the top */
-  gap: 48px; /* Increase spacing between columns for better separation */
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
 }
 
 .columns.columns30 > div > div {
-  flex: 1; /* Ensure equal width for both columns */
-  max-width: 42%; /* Slightly reduce column width for better balance */
-  box-sizing: border-box; /* Include padding and borders in width calculations */
-  text-align: left; /* Ensure text is left-aligned */
+  flex: 1;
+  max-width: 42%;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .columns.columns30 p:first-of-type {
-  font-size: 18px; /* Match title font size */
-  font-weight: 700; /* Make title bold */
-  color: #0B204C; /* Navy blue for title text */
-  margin-bottom: 36px; /* Add more spacing below titles */
+  font-size: 18px;
+  font-weight: 700;
+  color: #0B204C;
+  margin-bottom: 36px;
 }
 
 .columns.columns30 p:nth-of-type(3) {
-  font-size: 16px; /* Match description font size */
-  font-weight: 400; /* Regular weight for description */
-  color: #5E5E5E; /* Muted gray for description text */
-  line-height: 1.5rem; /* Add line height for readability */
-  margin-bottom: 30px; /* Ensure proper spacing below description */
+  font-size: 16px;
+  font-weight: 400;
+  color: #5E5E5E;
+  line-height: 1.5rem;
+  margin-bottom: 30px;
 }
 
 .columns.columns30 .button-container {
-  margin-top: 30px; /* Adjust spacing above the button */
-  text-align: left; /* Keep button aligned to the left */
+  margin-top: 30px;
+  text-align: left;
 }
 
 .columns.columns30 .button-container .button {
-  font-size: 16px; /* Ensure button matches font size */
-  font-weight: 700; /* Make button text bold */
-  color: #0B204C; /* Navy blue for button text */
-  text-decoration: underline; /* Add underline for emphasis */
+  font-size: 16px;
+  font-weight: 700;
+  color: #0B204C;
+  text-decoration: underline;
 }
 
 .columns.columns30 picture {
-  display: none; /* Hide unnecessary images */
+  display: none;
 }
 
 @media (max-width: 768px) {
   .columns.columns30 > div {
-    flex-direction: column; /* Stack columns vertically on smaller screens */
-    gap: 32px; /* Increase spacing between stacked sections */
+    flex-direction: column;
+    gap: 32px;
   }
-
   .columns.columns30 > div > div {
-    max-width: 100%; /* Allow full width for stacked columns */
+    max-width: 100%;
+  }
+}
+
+.columns.columns30 > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.columns.columns30 > div > div {
+  flex: 1 1 0;
+  max-width: 50%;
+  min-width: 0;
+  box-sizing: border-box;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.columns.columns30 > div > div > p:first-of-type {
+  font-family: var(--heading-font-family);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #10204d;
+  margin: 0 0 36px 0;
+  line-height: 1.15;
+  word-break: break-word;
+  padding-top: 0;
+}
+
+.columns.columns30 > div > div > p:nth-of-type(3) {
+  font-family: var(--body-font-family);
+  font-size: 1rem;
+  font-weight: 400;
+  color: #6c6f73;
+  line-height: 1.6;
+  margin: 0 0 24px 0;
+}
+
+.columns.columns30 .button-container {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.columns.columns30 .button-container .button {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  color: #10204d;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: underline;
+  display: inline;
+  box-shadow: none;
+  line-height: 1.4;
+  min-width: unset;
+  white-space: normal;
+  margin: 0;
+  text-align: left;
+}
+
+.columns.columns30 picture {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .columns.columns30 > div {
+    flex-direction: column;
+    gap: 32px;
+  }
+  .columns.columns30 > div > div {
+    max-width: 100%;
   }
 }
