@@ -26,7 +26,7 @@
   --heading-font-size-xxl: 64px;
   --heading-font-size-xl: 22px;
   --heading-font-size-l: 20px;
-  --heading-font-size-m: 22px;
+  --heading-font-size-m: 20px;
   --heading-font-size-s: 13.28px;
   --heading-font-size-xs: 10.72px;
   --nav-height: 153px;
@@ -84,7 +84,7 @@
     --body-font-size-s: 13.28px;
     --body-font-size-xs: 10.72px;
     --heading-font-size-xxl: 64px;
-    --heading-font-size-xl: 22px;
+    --heading-font-size-xl: 40px;
     --heading-font-size-l: 20px;
     --heading-font-size-m: 22px;
     --heading-font-size-s: 13.28px;
@@ -122,9 +122,10 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: 0.8em;
   margin-bottom: 0.25em;
   font-family: var(--heading-font-family);
-  font-weight: 600;
+  font-weight: 100;
   line-height: 1.25;
   scroll-margin: 40px;
+  color: #011546;
 }
 
 h1 {
