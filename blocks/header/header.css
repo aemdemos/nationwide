@@ -174,7 +174,8 @@ header nav .nav-sections ul {
 }
 
 header nav .nav-sections ul > li {
-  font-weight: 500;
+  font-weight: 100;
+  font-size: 18px;
 }
 
 header nav .nav-sections ul > li > ul {
@@ -209,8 +210,8 @@ header nav .nav-sections ul > li > ul > li {
     top: 0.5em;
     right: 2px;
     transform: rotate(135deg);
-    width: 9px;
-    height: 9px;
+    width: 6px;
+    height: 6px;
     border: 2px solid currentcolor;
     border-radius: 0 1px 0 0;
     border-width: 2px 2px 0 0;
