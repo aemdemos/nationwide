@@ -1,3 +1,4 @@
+
 /* Columns base styles */
 .columns > div {
   display: flex;
@@ -145,10 +146,13 @@
   }
 }
 
+/* ---- MERGED SELECTOR STARTS HERE ---- */
 .columns.columns30 {
   background: #fff;
   padding: 0;
 }
+
+/* ---- MERGED SELECTOR ENDS HERE ---- */
 
 .columns.columns30 > div > div {
   flex: 1 1 0;
@@ -237,3 +241,126 @@
     max-width: 100%;
   }
 }
+
+/* Generated CSS */
+.columns.columns30 {
+  background: #fff;
+  padding: 0;
+}
+
+/* Tighter, more original-like gap */
+.columns.columns30 > div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+/* Main columns: no padding, remain flexible, use full width */
+.columns.columns30 > div > div {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: 50%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+/* Headings: navy, bold, improved vertical alignment for both columns */
+.columns.columns30 > div > div > p:first-of-type {
+  font-family: var(--heading-font-family);
+  font-size: 2rem;
+  font-weight: 700;
+  color: #0a1744;
+  margin: 0 0 16px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  max-width: 100%;
+  padding: 0;
+  min-height: 48px; /* Adjusted for better visual centering */
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Supporting text: exact gray, slightly more space below for link */
+.columns.columns30 > div > div > p:nth-of-type(3) {
+  font-family: var(--body-font-family);
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: #66666e;
+  line-height: 1.6;
+  margin: 0 0 20px;
+  max-width: 100%;
+  padding: 0;
+}
+
+/* Remove extra margin on all paragraphs for tight grouping */
+.columns.columns30 > div > div > p {
+  margin-top: 0;
+}
+
+/* Link styling: navy, bold, underline, remove button background */
+.columns.columns30 .button-container {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.columns.columns30 .button-container .button {
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  color: #0a1744;
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: underline;
+  display: inline;
+  box-shadow: none;
+  line-height: 1.4;
+  min-width: unset;
+  white-space: normal;
+  margin: 0;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Hide images */
+.columns.columns30 picture {
+  display: none;
+}
+
+/* Responsive: stack columns on small screens */
+@media (width <= 900px) {
+  .columns.columns30 > div {
+    flex-direction: column;
+    gap: 32px;
+    width: 100%;
+  }
+
+  .columns.columns30 > div > div {
+    max-width: 100%;
+  }
+
+  .columns.columns30 > div > div > p:first-of-type {
+    min-height: 0;
+    display: block;
+  }
+}
+
+/* ---- MERGED SELECTOR STARTS HERE ---- */
+.columns.columns30 {
+  background: #fff;
+  padding: 0;
+}
+
+/* ---- MERGED SELECTOR ENDS HERE ---- */
